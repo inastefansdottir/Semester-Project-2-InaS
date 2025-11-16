@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+/* Custom theme*/
+@theme {
+  /* --- Colors --- */
+  --color-neutral-900: #000000;
+  --color-neutral-500: #7e7e7e;
+  --color-neutral-0: #ffffff;
+
+  --color-primary: #6666ff;
+  --color-secondary: #d8d8ff;
+  --color-accent: #aaaaff;
+
+  --color-error: #ff66f0;
+
+  /* --- Fonts --- */
+  --font-roboto: "Roboto", sans-serif;
+  --font-roboto-mono: "Roboto Mono", monospace;
+  --font-dm-serif: "DM Serif Display", serif;
+  --font-archivo-black: "Archivo Black", sans-serif;
+}
