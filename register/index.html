@@ -13,6 +13,7 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="../js/navbar.js" defer></script>
+  <script type="module" src="../js/register.js" defer></script>
 </head>
 
 <body class="font-roboto min-h-screen flex flex-col ">
@@ -100,26 +101,27 @@
         collectors.
         It’s quick, easy, and
         free to get started.</p>
-      <form class="w-full flex flex-col gap-4">
+      <!-- Register form -->
+      <form class="w-full flex flex-col" id="registerForm">
         <div>
           <input type="text" id="name" name="name" placeholder="Username"
             class="bg-neutral-0 placeholder:text-accent text-primary w-full py-2 px-4 rounded-full outline-1 outline-primary" />
-          <p class="" id="nameError"></p>
+          <p class="min-h-3.5 text-[14px] text-error text-right mt-1 mb-2" id="nameError"></p>
         </div>
         <div>
           <input type="email" id="email" name="email" placeholder="Email"
             class="bg-neutral-0 placeholder:text-accent text-primary w-full py-2 px-4 rounded-full outline-1 outline-primary" />
-          <p class="" id="emailError"></p>
+          <p class="min-h-3.5 text-[14px] text-error text-right mt-1 mb-2" id="emailError"></p>
         </div>
         <div>
           <input type="password" id="password" name="password" placeholder="Password"
             class="bg-neutral-0 placeholder:text-accent text-primary w-full py-2 px-4 rounded-full outline-1 outline-primary" />
-          <p class="" id="passwordError"></p>
+          <p class="min-h-3.5 text-[14px] text-error text-right mt-1 mb-2" id="passwordError"></p>
         </div>
         <button
-          class="bg-primary text-neutral-0 font-bold  py-2 w-full rounded-full cursor-pointer hover:bg-secondary hover:outline-2 hover:outline-primary hover:text-primary transition-colors duration-200">Create
+          class="bg-primary text-neutral-0 font-bold  py-2 w-full rounded-full cursor-pointer hover:bg-secondary hover:outline-2 hover:outline-primary hover:text-primary transition-colors duration-200 mb-5">Create
           account</button>
-        <div id="errorMessage"></div>
+        <div id="errorMessage" class="hidden bg-light-error text-error p-3.5 mb-4 text-[14px] rounded-2xl"></div>
       </form>
       <p class="text-[14px] text-accent font-bold">Already have an account?</p>
       <a href="../login/index.html" class="font-bold text-primary">Log in</a>
@@ -136,6 +138,9 @@
       <p class="text-neutral-0 text-[14px] text-right ms-4">©2025 BidVerse. All rights reserved.</p>
     </div>
   </footer>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
