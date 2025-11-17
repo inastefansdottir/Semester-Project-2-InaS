@@ -15,9 +15,9 @@
   <script src="./js/navbar.js" defer></script>
 </head>
 
-<body>
-  <header>
-    <nav class="font-roboto bg-secondary px-6 py-4 flex items-center justify-between">
+<body class="font-roboto min-h-screen flex flex-col ">
+  <header class="bg-secondary px-6 xl:px-20 py-4 sticky top-0 z-100 ">
+    <nav class="flex items-center justify-between max-w-[1600px] mx-auto w-full">
       <!-- Logo -->
       <img src="./images/logo.svg" alt="BidVerse logo" class="h-[30px] w-auto" />
 
@@ -57,7 +57,7 @@
 
     <!-- Mobile Menu -->
     <div id="mobile-menu"
-      class="font-roboto fixed top-0 right-0 h-full w-64 bg-secondary transform translate-x-full transition-transform duration-300 z-50 px-6 py-4 flex flex-col gap-4 md:hidden">
+      class="font-roboto fixed top-0 right-0 h-full w-64 bg-secondary transform translate-x-full transition-transform duration-300 z-110 px-6 py-4 flex flex-col gap-4 md:hidden">
       <button id="close-menu" class="self-end text-primary text-3xl font-bold">
         <i class="fas fa-xmark"></i>
       </button>
@@ -92,9 +92,18 @@
     </div>
   </header>
 
-  <main></main>
+  <main class="grow"></main>
 
-  <footer class="bg-primary"></footer>
+  <footer class="bg-primary px-6 xl:px-20 py-4 ">
+    <div class="flex justify-between items-center max-w-[1600px] mx-auto w-full">
+      <div class="flex gap-2.5">
+        <a><i class="fa-brands fa-square-youtube text-neutral-0 text-2xl"></i></a>
+        <a><i class="fa-brands fa-square-instagram text-neutral-0 text-2xl"></i></a>
+        <a><i class="fa-brands fa-square-facebook text-neutral-0 text-2xl"></i></a>
+      </div>
+      <p class="text-neutral-0 text-[14px] text-right ms-4">©2025 BidVerse. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 
 </html>
