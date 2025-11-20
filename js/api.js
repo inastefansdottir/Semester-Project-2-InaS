@@ -61,22 +61,43 @@ export async function loginUser({ email, password }) {
     if (accessToken) {
       saveToken("accessToken", accessToken);
       saveUser(user.name);
-      if (user) {
-        localStorage.setItem(
-          "loggedInUser",
-          JSON.stringify({
-            name: user.name,
-            email: user.email,
-            avatarUrl: user.avatar?.url,
-            bannerUrl: user.banner?.url
-          })
-        );
-      }
-      window.location.href = "../profile/index.html"
+
+      // Fetch full profile (includes bio)
+      const profileResponse = await getProfile(user.name, accessToken);
+      const profile = profileResponse.data;
+
+      // Save full profile to localStorage
+      localStorage.setItem("loggedInUser", JSON.stringify({
+        name: profile.name,
+        email: profile.email,
+        bio: profile.bio,
+        credits: profile.credits,
+        avatarUrl: profile.avatar?.url,
+        avatarAlt: profile.avatar?.alt,
+        bannerUrl: profile.banner?.url,
+        bannerAlt: profile.banner?.alt,
+      }));
+
+      window.location.href = "../profile/index.html";
     }
 
     return json;
   } catch (error) {
     throw error;
   }
+}
+
+export async function getProfile(name, accessToken) {
+  const response = await fetch(`${API_BASE_URL}/auction/profiles/${name}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "X-Noroff-API-Key": NOROFF_API_KEY
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to load profile");
+  }
+
+  return response.json();
 }
