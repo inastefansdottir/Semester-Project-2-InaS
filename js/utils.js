@@ -15,3 +15,19 @@ export function saveToken(key, value) {
 export function getToken(key) {
   return localStorage.getItem(key);
 }
+
+/**
+ * Saves the username in localStorage
+ * @param {string} username - The username to save
+ */
+export function saveUser(username) {
+  localStorage.setItem("username", username);
+}
+
+/**
+ * Retrieves the saved username from localStorage.
+ * @returns {string|null} The username, or null if not found.
+ */
+export function getUser() {
+  return localStorage.getItem("username");
+}

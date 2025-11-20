@@ -1,3 +1,5 @@
+import { saveToken, getToken, saveUser } from "./utils.js";
+
 const API_BASE_URL = "https://v2.api.noroff.dev";
 const AUTH_REGISTER_URL = `${API_BASE_URL}/auth/register`;
 const AUTH_LOGIN_URL = `${API_BASE_URL}/auth/login`;
@@ -51,6 +53,26 @@ export async function loginUser({ email, password }) {
 
     if (!response.ok) {
       throw new Error(json.errors?.[0]?.message || "Invalid email or password");
+    }
+
+    const accessToken = json.data?.accessToken;
+    const user = json.data
+
+    if (accessToken) {
+      saveToken("accessToken", accessToken);
+      saveUser(user.name);
+      if (user) {
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify({
+            name: user.name,
+            email: user.email,
+            avatarUrl: user.avatar?.url,
+            bannerUrl: user.banner?.url
+          })
+        );
+      }
+      window.location.href = "../profile/index.html"
     }
 
     return json;
