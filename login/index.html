@@ -12,7 +12,7 @@
     href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Serif+Display:ital@0;1&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script src="../js/navbar.js" defer></script>
+  <script type="module" src="../js/navbar.js" defer></script>
   <script type="module" src="../js/login.js" defer></script>
 </head>
 
@@ -43,10 +43,10 @@
         </li>
         <span
           class="hidden logged-in font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
-          <strong class="font-normal font-roboto-mono">1001</strong></span>
+          <strong id="desktopCredits" class="font-normal font-roboto-mono">1001</strong></span>
         <li class="hidden logged-in">
           <a href="../profile/index.html"><img src="../images/placeholder-avatar.png" alt="Username avatar"
-              class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /></a>
+              id="desktopAvatar" class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /></a>
         </li>
       </ul>
 
@@ -82,12 +82,13 @@
         </li>
         <span
           class="hidden logged-in self-end font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
-          <strong class="font-normal font-roboto-mono">1001</strong></span>
+          <strong id="mobileCredits" class="font-normal font-roboto-mono">1001</strong></span>
         <li class="hidden logged-in self-end">
-          <a href="../profile/index.html" class="flex items-center gap-2 font-bold"><img
-              src="../images/placeholder-avatar.png" alt="Username avatar"
-              class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" />
-            Username</a>
+          <a href="../profile/index.html" class="flex items-center gap-2"><img src="./images/placeholder-avatar.png"
+              alt="Username avatar" id="mobileAvatar"
+              class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /><strong id="mobileUsername"
+              class="font-bold text-primary"></strong>
+          </a>
         </li>
       </ul>
     </div>
