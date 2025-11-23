@@ -3,6 +3,7 @@ import { saveToken, getToken, saveUser } from "./utils.js";
 const API_BASE_URL = "https://v2.api.noroff.dev";
 const AUTH_REGISTER_URL = `${API_BASE_URL}/auth/register`;
 const AUTH_LOGIN_URL = `${API_BASE_URL}/auth/login`;
+const AUCTION_PROFILES_URL = `${API_BASE_URL}/auction/profiles`
 
 const NOROFF_API_KEY = "72566b4d-607a-4ba6-9e7f-cc634bc1f6a2";
 
@@ -87,17 +88,23 @@ export async function loginUser({ email, password }) {
   }
 }
 
-export async function getProfile(name, accessToken) {
-  const response = await fetch(`${API_BASE_URL}/auction/profiles/${name}`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "X-Noroff-API-Key": NOROFF_API_KEY
+export async function getProfile(name, accessToken = getToken("accessToken")) {
+  try {
+    const response = await fetch(`${AUCTION_PROFILES_URL}/${name}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": NOROFF_API_KEY
+      }
+    });
+
+
+    if (!response.ok) {
+      throw new Error("Failed to load profile");
     }
-  });
 
-  if (!response.ok) {
-    throw new Error("Failed to load profile");
+    return response.json();
+  } catch (error) {
+    console.error("Profile fetch error:", error);
+    throw error;
   }
-
-  return response.json();
 }

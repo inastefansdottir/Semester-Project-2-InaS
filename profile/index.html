@@ -84,10 +84,9 @@
           class="hidden logged-in self-end font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
           <strong id="mobileCredits" class="font-normal font-roboto-mono">1001</strong></span>
         <li class="hidden logged-in self-end">
-          <a href="../profile/index.html" class="flex items-center gap-2"><img src="./images/placeholder-avatar.png"
-              alt="Username avatar" id="mobileAvatar"
-              class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /><strong id="mobileUsername"
-              class="font-bold text-primary"></strong>
+          <a href="../profile/index.html" class="flex items-center gap-2"><img src="" alt="Username avatar"
+              id="mobileAvatar" class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /><strong
+              id="mobileUsername" class="font-bold text-primary"></strong>
           </a>
         </li>
       </ul>
@@ -96,20 +95,21 @@
 
   <main class="grow">
     <!-- Banner and Avatar section -->
-    <div class="relative w-full h-[415px]"> <img src="../images/banner.png"
+    <div class="relative w-full h-[415px]"> <img src="" id="banner"
         class="absolute top-0 left-0 w-full h-[350px] object-cover" />
-      <div class="max-w-[1750px] mx-auto w-full px-5 xl:px-20"> <img src="../images/placeholder-avatar.png"
-          class="w-[130px] h-[130px] rounded-full object-cover absolute -bottom-px left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0" />
+      <div class="max-w-[1750px] mx-auto w-full px-5 xl:px-20"> <img src="" id="avatar"
+          class="w-[130px] h-[130px] rounded-full object-cover absolute -bottom-px left-1/2 -translate-x-1/2 min-[640px]:left-auto min-[640px]:translate-x-0" />
       </div>
     </div>
 
     <div class="px-5 xl:px-20">
-      <div class="grid grid-cols-[230px_1fr] gap-8 mx-auto max-w-[1600px] mb-14">
+      <div
+        class="grid grid-cols-1 min-[640px]:grid-cols-[230px_1fr] gap-8 max-[640px]:gap-20 mx-auto max-w-[1600px] mb-14">
         <!-- User info -->
-        <div class="flex flex-col w-[230px] gap-3.5 mt-7">
+        <div class="flex flex-col w-[230px] max-[640px]:w-auto gap-3.5 mt-7 max-[640px]:items-center">
           <span id="username" class="font-archivo-black text-neutral-900 text-4xl">Salvie</span>
           <span
-            class="self-start font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
+            class="self-start font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary max-[640px]:self-center">Credits:
             <strong id="credits" class="font-normal font-roboto-mono">1001</strong></span>
           <p id="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius dignissim pellentesque. In
             hac habitasse platea dictumst.</p>
@@ -122,14 +122,15 @@
         </div>
 
         <!-- Users listings and bids -->
-        <div class="ml-8">
+        <div class="ml-8 max-[640px]:ml-0">
           <div class="flex justify-between mb-8">
             <div class="flex items-center gap-8">
-              <button class="font-bold text-[20px]">Listings</button>
+              <button
+                class="font-bold text-[20px] text-primary bg-secondary px-5 py-[5px] rounded-full">Listings</button>
               <button class="font-bold text-[20px]">Bids</button>
             </div>
             <a href="../create-listing/index.html" class="bg-primary text-neutral-0 font-bold
-             px-5 py-[7px] rounded-full">Create</a>
+             px-5 py-[7px] rounded-full self-center">Create</a>
           </div>
           <!-- Thumbnails -->
           <div id="ThumbnailsContainer"
