@@ -125,120 +125,15 @@
         <div class="ml-8 max-[640px]:ml-0">
           <div class="flex justify-between mb-8">
             <div class="flex items-center gap-8">
-              <button
-                class="font-bold text-[20px] text-primary bg-secondary px-5 py-[5px] rounded-full">Listings</button>
-              <button class="font-bold text-[20px]">Bids</button>
+              <button id="showListingsBtn" class="font-bold text-[20px]">Listings</button>
+              <button id="showBidsBtn" class="font-bold text-[20px]">Bids</button>
             </div>
             <a href="../create-listing/index.html" class="bg-primary text-neutral-0 font-bold
              px-5 py-[7px] rounded-full self-center">Create</a>
           </div>
           <!-- Thumbnails -->
-          <div id="ThumbnailsContainer"
+          <div id="thumbnailsContainer"
             class="grid w-full max-[865px]:grid-cols-1 min-[866px]:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-            <!-- specific thumbnail -->
-            <div class="p-4 rounded-2xl shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300">
-              <div class="relative">
-                <div class="relative w-full aspect-square">
-                  <img src="../images/test-image.jpg" class="absolute inset-0 w-full h-full object-cover rounded-xl">
-                </div>
-                <span
-                  class="text-primary font-bold font-roboto-mono bg-secondary py-1 px-2.5 rounded-full border border-primary absolute top-2 left-2"><i
-                    class="fa-regular fa-clock"></i> <strong id="timerDay">3</strong>d:<strong
-                    id="timerHour">10</strong>h:<strong id="timerMinutes">40</strong>m:<strong
-                    id="timerSecond">3</strong>s</span>
-              </div>
-              <div class="flex flex-col">
-                <span id="Listingtitle" class="text-[18px] font-bold mt-2.5">Strawberry pie on a plate</span>
-                <span class="text-[14px] text-neutral-500">current bid</span>
-                <div class="flex justify-between">
-                  <span class="font-bold"><strong id="currentBidNumber" class="font-roboto-mono">10</strong>
-                    Credits</span>
-                  <div class="flex items-center gap-1">
-                    <img src="../images/placeholder-avatar.png" alt="Username avatar" id="authorAvatar"
-                      class="w-[25px] h-[25px] rounded-full object-cover" /><strong id="authorUsername"
-                      class="font-bold">Salvie</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- specific thumbnail -->
-            <div class="p-4 rounded-2xl shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300">
-              <div class="relative">
-                <div class="relative w-full aspect-square">
-                  <img src="../images/test-image.jpg" class="absolute inset-0 w-full h-full object-cover rounded-xl">
-                </div>
-                <span
-                  class="text-primary font-bold font-roboto-mono bg-secondary py-1 px-2.5 rounded-full border border-primary absolute top-2 left-2"><i
-                    class="fa-regular fa-clock"></i> <strong id="timerDay">3</strong>d:<strong
-                    id="timerHour">10</strong>h:<strong id="timerMinutes">40</strong>m:<strong
-                    id="timerSecond">3</strong>s</span>
-              </div>
-              <div class="flex flex-col">
-                <span id="Listingtitle" class="text-[18px] font-bold mt-2.5">Strawberry pie on a plate</span>
-                <span class="text-[14px] text-neutral-500">current bid</span>
-                <div class="flex justify-between">
-                  <span class="font-bold"><strong id="currentBidNumber" class="font-roboto-mono">10</strong>
-                    Credits</span>
-                  <div class="flex items-center gap-1">
-                    <img src="../images/placeholder-avatar.png" alt="Username avatar" id="authorAvatar"
-                      class="w-[25px] h-[25px] rounded-full object-cover" /><strong id="authorUsername"
-                      class="font-bold">Salvie</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- specific thumbnail -->
-            <div class="p-4 rounded-2xl shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300">
-              <div class="relative">
-                <div class="relative w-full aspect-square">
-                  <img src="../images/test-image.jpg" class="absolute inset-0 w-full h-full object-cover rounded-xl">
-                </div>
-                <span
-                  class="text-primary font-bold font-roboto-mono bg-secondary py-1 px-2.5 rounded-full border border-primary absolute top-2 left-2"><i
-                    class="fa-regular fa-clock"></i> <strong id="timerDay">3</strong>d:<strong
-                    id="timerHour">10</strong>h:<strong id="timerMinutes">40</strong>m:<strong
-                    id="timerSecond">3</strong>s</span>
-              </div>
-              <div class="flex flex-col">
-                <span id="Listingtitle" class="text-[18px] font-bold mt-2.5">Strawberry pie on a plate</span>
-                <span class="text-[14px] text-neutral-500">current bid</span>
-                <div class="flex justify-between">
-                  <span class="font-bold"><strong id="currentBidNumber" class="font-roboto-mono">10</strong>
-                    Credits</span>
-                  <div class="flex items-center gap-1">
-                    <img src="../images/placeholder-avatar.png" alt="Username avatar" id="authorAvatar"
-                      class="w-[25px] h-[25px] rounded-full object-cover" /><strong id="authorUsername"
-                      class="font-bold">Salvie</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- specific thumbnail -->
-            <div class="p-4 rounded-2xl shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300">
-              <div class="relative">
-                <div class="relative w-full aspect-square">
-                  <img src="../images/test-image.jpg" class="absolute inset-0 w-full h-full object-cover rounded-xl">
-                </div>
-                <span
-                  class="text-primary font-bold font-roboto-mono bg-secondary py-1 px-2.5 rounded-full border border-primary absolute top-2 left-2"><i
-                    class="fa-regular fa-clock"></i> <strong id="timerDay">3</strong>d:<strong
-                    id="timerHour">10</strong>h:<strong id="timerMinutes">40</strong>m:<strong
-                    id="timerSecond">3</strong>s</span>
-              </div>
-              <div class="flex flex-col">
-                <span id="Listingtitle" class="text-[18px] font-bold mt-2.5">Strawberry pie on a plate</span>
-                <span class="text-[14px] text-neutral-500">current bid</span>
-                <div class="flex justify-between">
-                  <span class="font-bold"><strong id="currentBidNumber" class="font-roboto-mono">10</strong>
-                    Credits</span>
-                  <div class="flex items-center gap-1">
-                    <img src="../images/placeholder-avatar.png" alt="Username avatar" id="authorAvatar"
-                      class="w-[25px] h-[25px] rounded-full object-cover" /><strong id="authorUsername"
-                      class="font-bold">Salvie</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

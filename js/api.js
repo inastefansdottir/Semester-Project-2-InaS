@@ -88,15 +88,15 @@ export async function loginUser({ email, password }) {
   }
 }
 
-export async function getProfile(name, accessToken = getToken("accessToken")) {
+export async function getProfile(username, accessToken = getToken("accessToken")) {
   try {
-    const response = await fetch(`${AUCTION_PROFILES_URL}/${name}`, {
+    const fetchOptions = {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "X-Noroff-API-Key": NOROFF_API_KEY
       }
-    });
-
+    }
+    const response = await fetch(`${AUCTION_PROFILES_URL}/${username}`, fetchOptions);
 
     if (!response.ok) {
       throw new Error("Failed to load profile");
@@ -107,4 +107,52 @@ export async function getProfile(name, accessToken = getToken("accessToken")) {
     console.error("Profile fetch error:", error);
     throw error;
   }
+}
+
+/**
+ * Fetch listings of a specific user
+ * @param {string} username
+ * @returns {Promise<Array>} Array of listing objects
+ */
+export async function getUserListings(username) {
+  const accessToken = getToken("accessToken");
+
+  const fetchOptions = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "X-Noroff-API-Key": NOROFF_API_KEY
+    }
+  }
+  const response = await fetch(`${AUCTION_PROFILES_URL}/${username}/listings`, fetchOptions);
+
+  if (!response.ok) {
+    throw new Error("Failed to load user listings");
+  }
+
+  const json = await response.json();
+  return json.data || [];
+}
+
+/**
+ * Fetch bids of a specific user
+ * @param {string} username
+ * @returns {Promise<Array>} Array of bid objects
+ */
+export async function getUserBids(username) {
+  const accessToken = getToken("accessToken");
+
+  const fetchOptions = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "X-Noroff-API-Key": NOROFF_API_KEY
+    }
+  }
+  const response = await fetch(`${AUCTION_PROFILES_URL}/${username}/bids`, fetchOptions);
+
+  if (!response.ok) {
+    throw new Error("Failed to load user bids");
+  }
+
+  const json = await response.json();
+  return json.data || [];
 }
