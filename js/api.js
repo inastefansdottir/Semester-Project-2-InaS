@@ -4,6 +4,7 @@ const API_BASE_URL = "https://v2.api.noroff.dev";
 const AUTH_REGISTER_URL = `${API_BASE_URL}/auth/register`;
 const AUTH_LOGIN_URL = `${API_BASE_URL}/auth/login`;
 const AUCTION_PROFILES_URL = `${API_BASE_URL}/auction/profiles`
+const AUCTION_LISTINGS_URL = `${API_BASE_URL}/auction/listings`
 
 const NOROFF_API_KEY = "72566b4d-607a-4ba6-9e7f-cc634bc1f6a2";
 
@@ -155,4 +156,44 @@ export async function getUserBids(username) {
 
   const json = await response.json();
   return json.data || [];
+}
+
+export async function fetchListings() {
+  try {
+    const accessToken = getToken("accessToken");
+    const fetchOptions = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": NOROFF_API_KEY
+      }
+    };
+    const response = await fetch(
+      `${AUCTION_LISTINGS_URL}?_seller=true&_bids=true`,
+      fetchOptions
+    );
+    const json = await response.json();
+    return json.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getListingById(listingId) {
+  try {
+    const accessToken = getToken("accessToken");
+    const fetchOptions = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": NOROFF_API_KEY
+      }
+    };
+    const response = await fetch(
+      `${AUCTION_LISTINGS_URL}/${listingId}`,
+      fetchOptions
+    );
+    const json = await response.json();
+    return json.data;
+  } catch (error) {
+    console.log(error);
+  }
 }
