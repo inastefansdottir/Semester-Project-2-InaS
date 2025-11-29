@@ -39,7 +39,7 @@
 
         <!-- Links for logged-in users -->
         <li class="hidden logged-in">
-          <a href="../create-listing.html" class="text-primary font-bold hover:text-highlight">Create Listing</a>
+          <a href="../create-listing/index.html" class="text-primary font-bold hover:text-highlight">Create Listing</a>
         </li>
         <span
           class="hidden logged-in font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
@@ -78,7 +78,7 @@
 
         <!-- Links for logged-in users -->
         <li class="hidden logged-in self-end">
-          <a href="../create-listing.html" class="text-primary font-bold">Create Listing</a>
+          <a href="../create-listing/index.html" class="text-primary font-bold">Create Listing</a>
         </li>
         <span
           class="hidden logged-in self-end font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
@@ -124,8 +124,16 @@
     </div>
 
     <div id="thumbnailsContainer"
-      class="relative z-10 grid w-full mt-120 max-[629px]:grid-cols-1 min-[630px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 max-w-[1600px] mx-auto px-5 xl:px-20 mb-40">
+      class="relative z-10 grid w-full mt-120 max-[629px]:grid-cols-1 min-[630px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 max-w-[1600px] mx-auto px-5 xl:px-20 mb-20">
     </div>
+
+    <div class="flex justify-center mt-6">
+      <button id="loadMoreBtn"
+        class="bg-primary text-neutral-0 text-2xl rounded-full py-1.5 px-3 mb-30 cursor-pointer"><i
+          class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+
   </main>
 
   <footer class="bg-primary px-5 xl:px-20 py-4 ">

@@ -1,13 +1,25 @@
 import { fetchListings } from "./api.js";
 
+// The container where all listing thumbnails will be displayed
 const thumbnailsContainer = document.getElementById("thumbnailsContainer")
 
+// The "load more" button element
+const loadMoreBtn = document.getElementById("loadMoreBtn")
+
+let currentPage = 1; // Track which page os listings we are currently on
+let isLoading = false; // Prevent multiple simultaneous requests
+let hasMore = true; // Track whether more pages exist
+
+/**
+ * Converts an end date into a readable countdown string
+ * Example: "2d:5h:30m:12s"
+ */
 function formatTimeRemaining(endsAt) {
   const end = new Date(endsAt);
   const now = new Date();
   const diff = end - now;
 
-  if (diff <= 0) return "Ended";
+  if (diff <= 0) return "Ended"; // Auction has ended
 
   const seconds = Math.floor((diff / 1000) % 60);
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
@@ -17,16 +29,25 @@ function formatTimeRemaining(endsAt) {
   return `${days}d:${hours}h:${minutes}m:${seconds}s`;
 }
 
-
-function renderThumbnails(listings) {
-  thumbnailsContainer.innerHTML = "";
+/**
+ * Render thumbnails for a list of listings
+ * @param {Array} listings - array of listing objects
+ * @param {boolean} replace - if true, clears previous thumbnails; if false, appends
+ */
+function renderThumbnails(listings, replace = true) {
+  if (replace) {
+    thumbnailsContainer.innerHTML = ""; // Clear old thumbnails if needed
+  }
 
   listings.forEach(listing => {
-    const thumb = document.createElement("div");
+    const thumb = document.createElement("a");
+    thumb.href = `../listing/?id=${listing.id}`;
     thumb.className = "p-4 rounded-2xl bg-neutral-0 shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300 flex flex-col";
 
+    // Calculate highest bid
     const highestBid = listing.bids?.length ? Math.max(...listing.bids.map(b => b.amount)) : 0;
 
+    // Build thumbnail HTML
     thumb.innerHTML = `
       <div class="relative">
         <div class="relative w-full aspect-square">
@@ -57,15 +78,72 @@ function renderThumbnails(listings) {
   });
 }
 
-async function main() {
-  const listings = await fetchListings();
-  console.log(listings)
+/**
+ * Load the next page of listings from the API
+ * Applies filtering, sorting, and appends to the page
+ */
+async function loadNextPage() {
+  if (isLoading || !hasMore) return; // prevent double requests
 
-  renderThumbnails(listings);
+  isLoading = true;
+  loadMoreBtn.disabled = true; // Disable button while loading
+
+  try {
+    const rawListings = await fetchListings(currentPage); // Fetch API for current page
+
+    // If no listings returned, stop pagination
+    if (!rawListings || rawListings.length === 0) {
+      hasMore = false;
+      loadMoreBtn.style.display = "none";
+      return;
+    }
+
+    // Filter logic
+    const now = new Date();
+    const threeDays = 3 * 24 * 60 * 60 * 1000; // 3 days in ms
+
+    const filtered = rawListings.filter(listing => {
+      const endsAt = new Date(listing.endsAt);
+
+      if (endsAt > now) return true; // Listing is live
+      if (now - endsAt <= threeDays) return true; // Ended less than 3 days ago
+      return false; // older than 3 days > skip
+    });
+
+    // Sort newest first
+    filtered.sort((a, b) => new Date(b.created) - new Date(a.created));
+
+    // Skip empty pages automatically
+    if (filtered.length === 0) {
+      console.log(`Skipping empty page ${currentPage}`);
+      currentPage++;
+      isLoading = false;
+      loadMoreBtn.disabled = false;
+      loadNextPage(); // try next page
+      return;
+    }
+
+    // Append filtered listings to container
+    renderThumbnails(filtered, false);
+
+    currentPage++; // Move to next page for future requests
+  } catch (error) {
+    console.error(error);
+  }
+
+  isLoading = false;
+  loadMoreBtn.disabled = false;
 }
 
-main();
+// Initial load of listings
+loadNextPage();
 
+// Button click to load more listings
+loadMoreBtn.addEventListener("click", () => {
+  loadNextPage();
+});
+
+// Timer updater runs every second to update countdowns on listings
 setInterval(updateAllTimers, 1000);
 
 function updateAllTimers() {
@@ -77,7 +155,6 @@ function updateAllTimers() {
 
     timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${timeText}`;
 
-    // Ended → change visual style
     if (timeText === "Ended") {
       timer.classList.add("bg-light-error", "text-error", "border-error");
       timer.classList.remove("bg-secondary", "text-primary", "border-primary");

@@ -158,7 +158,7 @@ export async function getUserBids(username) {
   return json.data || [];
 }
 
-export async function fetchListings() {
+export async function fetchListings(page = 1, limit = 20) {
   try {
     const accessToken = getToken("accessToken");
     const fetchOptions = {
@@ -167,16 +167,19 @@ export async function fetchListings() {
         "X-Noroff-API-Key": NOROFF_API_KEY
       }
     };
+
     const response = await fetch(
-      `${AUCTION_LISTINGS_URL}?_seller=true&_bids=true`,
+      `${AUCTION_LISTINGS_URL}?sort=created&sortOrder=desc&limit=${limit}&page=${page}&_seller=true&_bids=true`,
       fetchOptions
     );
+
     const json = await response.json();
     return json.data;
   } catch (error) {
     console.log(error);
   }
 }
+
 
 export async function getListingById(listingId) {
   try {
@@ -195,5 +198,33 @@ export async function getListingById(listingId) {
     return json.data;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function createListing(listingData) {
+  try {
+    const accessToken = getToken("accessToken");
+    const fetchOptions = {
+      method: "POST",
+      body: JSON.stringify(listingData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": NOROFF_API_KEY
+      }
+    };
+    const response = await fetch(AUCTION_LISTINGS_URL, fetchOptions);
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      console.error("Failed to create listing:", json);
+      return null; // return null instead of throwing
+    }
+
+    return json.data;
+  } catch (error) {
+    console.error("Error in createListing:", error);
+    return null; // return null on error
   }
 }
