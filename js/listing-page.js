@@ -51,6 +51,10 @@ function updateEndsAt() {
   endsAt.innerHTML = `${timeString}`;
 }
 
+function shortenName(name, maxLength = 10) {
+  return name.length > maxLength ? name.slice(0, maxLength) + "…" : name;
+}
+
 
 function setupListingPage(listing) {
   // Update page content dynamically
@@ -80,6 +84,29 @@ function setupListingPage(listing) {
     highestBidderAvatar.alt = "No bids yet";
   }
 
+  // Image gallery section
+  mainThumbnail.src = listing.media[0]?.url || "../images/no-image.png"
+  mainThumbnail.alt = listing.media[0]?.alt || listing.title;
+
+  thumbnailsButtons.innerHTML = ""; // Clear any exisiting thumbnails
+
+  listing.media.forEach((image, index) => {
+    const thumb = document.createElement("img");
+
+    thumb.src = image.url;
+    thumb.alt = image.alt || `Image ${index + 1}`;
+    thumb.className =
+      "w-[104px] h-[104px] object-cover rounded-[10px] cursor-pointer max-[485px]:w-20 max-[485px]:h-20";
+
+    // Clicking a thumbnail updates the main image
+    thumb.addEventListener("click", () => {
+      mainThumbnail.src = image.url;
+      mainThumbnail.alt = image.alt || listing.title;
+    })
+
+    thumbnailsButtons.appendChild(thumb);
+  })
+
   // Auction info section
   endsAt.dataset.time = listing.endsAt;
   updateEndsAt();
@@ -92,11 +119,13 @@ function setupListingPage(listing) {
 
     const bidTime = formatBidDate(bid.created);
 
+    const shortName = shortenName(bid.bidder.name, 10);
+
     wrapper.innerHTML = `
-      <img src="${bid.bidder.avatar.url}" alt="${bid.bidder.avatar.alt}" class="h-[47px] w-[47px] rounded-full row-span-2">
+      <img src="${bid.bidder.avatar.url}" alt="${bid.bidder.avatar.alt}" class="h-[47px] w-[47px] rounded-full row-span-2 object-cover">
       <p class="font-bold text-[18px] col-start-2">Bid: ${bid.amount} credits</p>
       <div class="flex justify-between col-start-2">
-        <p class="text-neutral-500">By ${bid.bidder.name}</p>
+        <p class="text-neutral-500 truncate max-w-20">By ${shortName}</p>
         <p class="font-roboto-mono">${bidTime.date} <span class="text-neutral-500 ml-1 max-[485px]:hidden">${bidTime.time}</span></p>
       </div>
     `;
