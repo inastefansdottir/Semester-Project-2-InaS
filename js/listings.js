@@ -41,7 +41,7 @@ function renderThumbnails(listings, replace = true) {
 
   listings.forEach(listing => {
     const thumb = document.createElement("a");
-    thumb.href = `../listing/?id=${listing.id}`;
+    thumb.href = `../all-listings/listing.html?id=${listing.id}`;
     thumb.className = "p-4 rounded-2xl bg-neutral-0 shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300 flex flex-col";
 
     // Calculate highest bid

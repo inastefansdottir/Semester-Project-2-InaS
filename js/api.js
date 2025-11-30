@@ -191,7 +191,7 @@ export async function getListingById(listingId) {
       }
     };
     const response = await fetch(
-      `${AUCTION_LISTINGS_URL}/${listingId}`,
+      `${AUCTION_LISTINGS_URL}/${listingId}?_seller=true&_bids=true`,
       fetchOptions
     );
     const json = await response.json();
