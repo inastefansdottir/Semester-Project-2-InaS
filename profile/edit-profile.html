@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BidVerse | Create Listing</title>
+  <link rel="stylesheet" href="../dist/output.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Serif+Display:ital@0;1&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script type="module" src="../js/navbar.js" defer></script>
+  <script type="module" src="../js/create-listing.js" defer></script>
+</head>
+
+<body class="font-roboto min-h-screen flex flex-col ">
+  <header class="bg-secondary px-5 xl:px-20 py-4 sticky top-0 z-100 ">
+    <nav class="flex items-center justify-between max-w-[1600px] mx-auto w-full">
+      <!-- Logo -->
+      <img src="../images/logo.svg" alt="BidVerse logo" class="h-[30px] w-auto" />
+
+      <!-- Desktop Menu -->
+      <ul id="nav-links" class="hidden md:flex gap-8 items-center">
+        <!-- Links for all users -->
+        <li>
+          <a href="../index.html" class="text-primary font-bold hover:text-highlight">Home</a>
+        </li>
+        <li>
+          <a href="../all-listings/index.html" class="text-primary font-bold hover:text-highlight">Browse Listings</a>
+        </li>
+        <li class="logged-out">
+          <a href="../login/index.html"
+            class="bg-primary text-neutral-0 font-bold text-[14px] px-4 py-1.5 rounded-full hover:bg-accent transition-colors duration-200">Log
+            in</a>
+        </li>
+
+        <!-- Links for logged-in users -->
+        <li class="hidden logged-in">
+          <a href="../create-listing/index.html" class="text-primary font-bold hover:text-highlight">Create Listing</a>
+        </li>
+        <span
+          class="hidden logged-in font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
+          <strong id="desktopCredits" class="font-normal font-roboto-mono">1001</strong></span>
+        <li class="hidden logged-in">
+          <a href="../profile/index.html"><img src="../images/placeholder-avatar.png" alt="Username avatar"
+              id="desktopAvatar" class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /></a>
+        </li>
+      </ul>
+
+      <!-- Hamburger -->
+      <button id="hamburger" class="md:hidden text-primary text-3xl focus:outline-none">
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+      class="font-roboto fixed top-0 right-0 h-full w-64 bg-secondary transform translate-x-full transition-transform duration-300 z-110 px-6 py-4 flex flex-col gap-4 md:hidden">
+      <button id="close-menu" class="self-end text-primary text-3xl font-bold">
+        <i class="fas fa-xmark"></i>
+      </button>
+
+      <ul class="flex flex-col gap-5">
+        <!-- Links for all users -->
+        <li class="self-end">
+          <a href="../index.html" class="text-primary font-bold">Home</a>
+        </li>
+        <li class="self-end">
+          <a href="../all-listings/index.html" class="text-primary font-bold">Browse Listings</a>
+        </li>
+        <li class="logged-out self-end mt-1">
+          <a href="../login/index.html"
+            class="bg-primary text-neutral-0 font-bold text-[14px] px-4 py-1.5 rounded-full">Log in</a>
+        </li>
+
+        <!-- Links for logged-in users -->
+        <li class="hidden logged-in self-end">
+          <a href="../create-listing/index.html" class="text-primary font-bold">Create Listing</a>
+        </li>
+        <span
+          class="hidden logged-in self-end font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
+          <strong id="mobileCredits" class="font-normal font-roboto-mono">1001</strong></span>
+        <li class="hidden logged-in self-end">
+          <a href="../profile/index.html" class="flex items-center gap-2"><img src="./images/placeholder-avatar.png"
+              alt="Username avatar" id="mobileAvatar"
+              class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /><strong id="mobileUsername"
+              class="font-bold text-primary"></strong>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="grow">
+    <form id="editProfileForm" class="mb-20">
+      <div class="relative w-full h-[415px]"> <img src="../images/banner.png" id="banner"
+          class="absolute top-0 left-0 w-full h-[350px] object-cover" />
+        <div class="max-w-[1750px]"> <img src="../images/placeholder-avatar.png" id="avatar"
+            class="w-[130px] h-[130px] rounded-full object-cover absolute -bottom-px left-1/2 -translate-x-1/2" />
+        </div>
+      </div>
+      <!-- User info -->
+      <div class="flex flex-col items-center">
+        <h1 class="font-archivo-black text-primary text-[40px]">Edit profile</h1>
+        <div class="mt-4">
+          <button class="bg-primary border-2 border-primary text-neutral-0 font-bold px-5 py-1.5 rounded-full">Edit
+            avatar</button>
+          <button class="bg-secondary border-2 border-primary text-primary font-bold
+             px-5 py-1.5 rounded-full ml-2">Edit banner</button>
+        </div>
+        <div class="flex flex-col w-[250px] mt-5">
+          <label for="description" class="text-primary">Edit profile description:</label>
+          <textarea id="description" name="description" rows="4"
+            class="bg-neutral-0 text-primary py-2 px-4 rounded-[20px] outline mt-2"></textarea>
+        </div>
+        <span
+          class="font-bold text-neutral-900 text-[14px] px-3 py-0.5 rounded-full border-2 border-neutral-900 mt-9">Credits:
+          <strong id="credits" class="font-normal font-roboto-mono">1001</strong></span>
+        <div class="w-[250px] mt-5">
+          <p class="font-bold mb-2">Username:</p>
+          <span id="name" class="text-neutral-500">Salvie</span>
+          <hr class="mt-1">
+        </div>
+        <div class="w-[250px] mt-5">
+          <p class="font-bold mb-2">Email:</p>
+          <span id="email" class="text-neutral-500">salvie@stud.noroff.no</span>
+          <hr class="mt-1">
+        </div>
+        <button class="bg-error border-2 border-error text-neutral-0 font-bold px-5 py-1.5 rounded-full mt-8">Log
+          out</button>
+        <div class="mt-4">
+          <button class="bg-primary border-2 border-primary text-neutral-0 font-bold
+             px-5 py-[7px] rounded-full">Cancel <i class="fa-solid fa-x ml-1"></i></button>
+          <button type="submit" class="bg-secondary border-2 border-primary text-primary font-bold
+             px-5 py-1.5 rounded-full ml-2">Save</button>
+        </div>
+    </form>
+  </main>
+
+  <footer class="bg-primary px-5 xl:px-20 py-4 ">
+    <div class="flex justify-between items-center max-w-[1600px] mx-auto w-full">
+      <div class="flex gap-2.5">
+        <a><i class="fa-brands fa-square-youtube text-neutral-0 text-2xl"></i></a>
+        <a><i class="fa-brands fa-square-instagram text-neutral-0 text-2xl"></i></a>
+        <a><i class="fa-brands fa-square-facebook text-neutral-0 text-2xl"></i></a>
+      </div>
+      <p class="text-neutral-0 text-[14px] text-right ms-4">©2025 BidVerse. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
