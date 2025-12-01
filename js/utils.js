@@ -31,3 +31,10 @@ export function saveUser(username) {
 export function getUser() {
   return localStorage.getItem("username");
 }
+
+/**
+ * Clears all data from localStorage
+ */
+export function clearStorage() {
+  localStorage.clear();
+}

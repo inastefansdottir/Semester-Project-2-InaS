@@ -130,7 +130,7 @@ async function uploadFileToCloudinary(file) {
 
   const json = await res.json();
   if (!res.ok) {
-    // Cloudinary returns an error structure; surface the message if possible
+    // Cloudinary returns an error structure
     const msg = json.error?.message || `Cloudinary upload failed`;
     throw new Error(msg);
   }

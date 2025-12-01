@@ -1,5 +1,6 @@
 import { getProfile, getUserListings, getUserBids } from "./api.js";
 import { protectPage } from "./auth.js";
+import { clearStorage } from "./utils.js";
 
 protectPage();
 
@@ -125,8 +126,8 @@ async function loadProfile() {
   credits.textContent = profile.data.credits || 0;
   bio.textContent = profile.data.bio || "User has no bio..";
 
-  avatar.src = profile.data.avatar?.url;
-  banner.src = profile.data.banner?.url;
+  avatar.src = profile.data.avatar?.url || "../images/placeholder-avatar.png";
+  banner.src = profile.data.banner?.url || "../images/banner.png";
 
   // Fetch listings and bids
   let userListings = await getUserListings(user.name);
@@ -149,5 +150,11 @@ async function loadProfile() {
   renderThumbnails(userListings);
 }
 
+// Log out button
+logoutBtn.addEventListener("click", e => {
+  e.preventDefault();
+  clearStorage();
+  location.href = "../login/index.html"
+})
 
 loadProfile();

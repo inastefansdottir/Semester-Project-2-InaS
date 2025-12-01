@@ -228,3 +228,31 @@ export async function createListing(listingData) {
     return null; // return null on error
   }
 }
+
+export async function updateProfile(username, updatedData) {
+  try {
+    const accessToken = getToken("accessToken");
+    const fetchOptions = {
+      method: "PUT",
+      body: JSON.stringify(updatedData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": NOROFF_API_KEY
+      }
+    };
+    const response = await fetch(`${AUCTION_PROFILES_URL}/${username}`, fetchOptions);
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      console.error("Error updating profile:", json);
+      return null; // return null instead of throwing
+    }
+
+    return json.data;
+  } catch (error) {
+    console.error("Update profile error:", error);
+    return null; // return null on error
+  }
+}

@@ -34,8 +34,9 @@ function insertUserNavbarData() {
   const mobileCredits = document.getElementById("mobileCredits");
 
   // Set avatar images
-  if (desktopAvatar) desktopAvatar.src = user.avatarUrl;
-  if (mobileAvatar) mobileAvatar.src = user.avatarUrl;
+  if (desktopAvatar) desktopAvatar.src = user.avatarUrl || '../images/placeholder-avatar.png';
+  if (mobileAvatar) mobileAvatar.src = user.avatarUrl || '../images/placeholder-avatar.png';
+
 
   // Set credits text
   if (desktopCredits) desktopCredits.textContent = user.credits ?? 0;
