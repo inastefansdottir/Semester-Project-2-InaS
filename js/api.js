@@ -124,7 +124,7 @@ export async function getUserListings(username) {
       "X-Noroff-API-Key": NOROFF_API_KEY
     }
   }
-  const response = await fetch(`${AUCTION_PROFILES_URL}/${username}/listings`, fetchOptions);
+  const response = await fetch(`${AUCTION_PROFILES_URL}/${username}/listings?_seller=true&_bids=true`, fetchOptions);
 
   if (!response.ok) {
     throw new Error("Failed to load user listings");
@@ -148,7 +148,7 @@ export async function getUserBids(username) {
       "X-Noroff-API-Key": NOROFF_API_KEY
     }
   }
-  const response = await fetch(`${AUCTION_PROFILES_URL}/${username}/bids`, fetchOptions);
+  const response = await fetch(`${AUCTION_PROFILES_URL}/${username}/bids?_seller=true&_bids=true&_listings=true`, fetchOptions);
 
   if (!response.ok) {
     throw new Error("Failed to load user bids");

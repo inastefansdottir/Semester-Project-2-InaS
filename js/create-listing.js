@@ -211,7 +211,7 @@ form.addEventListener("submit", async (e) => {
     alert("Listing created!");
 
     if (newListingId) {
-      window.location.href = `../all-listings/listings.html/?id=${newListingId}`;
+      window.location.href = `../all-listings/listing.html?id=${newListingId}`;
     } else {
       window.location.href = "../all-listings/index.html";
     }

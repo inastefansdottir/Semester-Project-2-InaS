@@ -147,25 +147,16 @@ saveBtn.addEventListener("click", async (e) => {
   }
 })
 
-//cancel button
-cancelBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  // Restore original values
-  avatarImg.src = originalAvatar;
-  bannerImg.src = originalBanner;
-  bioInput.value = originalBio;
-
-  // Clear temporary files
-  newAvatarFile = null;
-  newBannerFile = null;
-});
-
 // Log out button
 logoutBtn.addEventListener("click", e => {
   e.preventDefault();
   clearStorage();
   location.href = "../login/index.html"
+})
+
+cancelBtn.addEventListener("click", e => {
+  e.preventDefault();
+  location.href = "/profile/index.html"
 })
 
 // Load profile on page load
