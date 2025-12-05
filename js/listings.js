@@ -40,9 +40,13 @@ function renderThumbnails(listings, replace = true) {
   }
 
   listings.forEach(listing => {
-    const thumb = document.createElement("a");
-    thumb.href = `../all-listings/listing.html?id=${listing.id}`;
-    thumb.className = "p-4 rounded-2xl bg-neutral-0 shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300 flex flex-col";
+    const thumb = document.createElement("div");
+    thumb.addEventListener("click", () => {
+      window.location.href = `../all-listings/listing.html?id=${listing.id}`;
+    });
+    thumb.className = "p-4 rounded-2xl bg-neutral-0 border border-neutral-300 shadow-[0_6px_16px_0_rgba(102,102,255,0.25)] flex flex-col " +
+      "transition-transform transition-shadow duration-200 " +
+      "hover:scale-[1.02] hover:shadow-[0_6px_16px_0_rgba(102,102,255,0.45)] cursor-pointer";
 
     // Calculate highest bid
     const highestBid = listing.bids?.length ? Math.max(...listing.bids.map(b => b.amount)) : 0;
@@ -60,15 +64,16 @@ function renderThumbnails(listings, replace = true) {
       </div>
       <div class="flex flex-col h-full">
         <span class="text-[18px] font-bold mt-2.5 wrap-break line-clamp-2">${listing.title}</span>
-        <div class="mt-auto">
-          <span class="text-[14px] text-neutral-500">current bid</span>
-          <div class="flex justify-between">
-            <span class="font-bold">${highestBid || 0} Credits</span>
+        <div class="mt-auto flex flex-col">
+          <span class="text-[14px] text-neutral-500 leading-tight">current bid</span>
+          <span class="font-bold leading-tight">${highestBid || 0} Credits</span>
+          <div class="flex justify-between mt-2">
             <div class="flex items-center gap-1">
               <img src="${listing.seller?.avatar?.url || "../images/placeholder-avatar.png"}" 
                   alt="Username avatar" class="w-[25px] h-[25px] rounded-full object-cover">
               <strong class="font-bold">${listing.seller?.name || 'Unknown'}</strong>
             </div>
+            <a href="../all-listings/listing.html?id=${listing.id}" class="bg-primary text-neutral-0 font-bold text-[14px] px-5 py-[5px] rounded-full hover:bg-accent transition-colors duration-200">Place bid</a>
           </div>
         </div>
       </div>

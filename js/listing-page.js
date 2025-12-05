@@ -125,7 +125,7 @@ function setupListingPage(listing) {
       <img src="${bid.bidder.avatar.url}" alt="${bid.bidder.avatar.alt}" class="h-[47px] w-[47px] rounded-full row-span-2 object-cover">
       <p class="font-bold text-[18px] col-start-2">Bid: ${bid.amount} credits</p>
       <div class="flex justify-between col-start-2">
-        <p class="text-neutral-500 truncate max-w-20">By ${shortName}</p>
+        <p class="text-neutral-500">By ${shortName}</p>
         <p class="font-roboto-mono">${bidTime.date} <span class="text-neutral-500 ml-1 max-[485px]:hidden">${bidTime.time}</span></p>
       </div>
     `;

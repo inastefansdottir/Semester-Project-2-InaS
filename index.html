@@ -4,47 +4,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <link rel="stylesheet" href="dist/output.css" />
+  <title>BidVerse | Home</title>
+  <link rel="stylesheet" href="../dist/output.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Serif+Display:ital@0;1&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script type="module" src="./js/navbar.js" defer></script>
+  <script type="module" src="../js/navbar.js" defer></script>
+  <script type="module" src="../js/home.js" defer></script>
 </head>
 
 <body class="font-roboto min-h-screen flex flex-col ">
-  <header class="bg-secondary px-6 xl:px-20 py-4 sticky top-0 z-100 ">
+  <header class="bg-secondary px-5 xl:px-20 py-4 sticky top-0 z-100 ">
     <nav class="flex items-center justify-between max-w-[1600px] mx-auto w-full">
       <!-- Logo -->
-      <img src="./images/logo.svg" alt="BidVerse logo" class="h-[30px] w-auto" />
+      <img src="../images/logo.svg" alt="BidVerse logo" class="h-[30px] w-auto" />
 
       <!-- Desktop Menu -->
       <ul id="nav-links" class="hidden md:flex gap-8 items-center">
         <!-- Links for all users -->
         <li>
-          <a href="./index.html" class="text-highlight font-bold">Home</a>
+          <a href="../index.html" class="text-highlight font-bold">Home</a>
         </li>
         <li>
-          <a href="./all-listings/index.html" class="text-primary font-bold hover:text-highlight">Browse Listings</a>
+          <a href="../all-listings/index.html" class="text-primary font-bold hover:text-highlight">Browse Listings</a>
         </li>
         <li class="logged-out">
-          <a href="./login/index.html"
+          <a href="../login/index.html"
             class="bg-primary text-neutral-0 font-bold text-[14px] px-4 py-1.5 rounded-full hover:bg-accent transition-colors duration-200">Log
             in</a>
         </li>
 
         <!-- Links for logged-in users -->
         <li class="hidden logged-in">
-          <a href="create-listing/index.html" class="text-primary font-bold hover:text-highlight">Create Listing</a>
+          <a href="../create-listing/index.html" class="text-primary font-bold hover:text-highlight">Create Listing</a>
         </li>
         <span
           class="hidden logged-in font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
           <strong id="desktopCredits" class="font-normal font-roboto-mono">1001</strong></span>
         <li class="hidden logged-in">
-          <a href="./profile/index.html"><img src="./images/placeholder-avatar.png" alt="Username avatar"
+          <a href="../profile/index.html"><img src="../images/placeholder-avatar.png" alt="Username avatar"
               id="desktopAvatar" class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /></a>
         </li>
       </ul>
@@ -65,25 +66,25 @@
       <ul class="flex flex-col gap-5">
         <!-- Links for all users -->
         <li class="self-end">
-          <a href="./index.html" class="text-highlight font-bold">Home</a>
+          <a href="../index.html" class="text-highlight font-bold">Home</a>
         </li>
         <li class="self-end">
-          <a href="./all-listings/index.html" class="text-primary font-bold">Browse Listings</a>
+          <a href="../all-listings/index.html" class="text-primary font-bold">Browse Listings</a>
         </li>
         <li class="logged-out self-end mt-1">
-          <a href="./login/index.html"
+          <a href="../login/index.html"
             class="bg-primary text-neutral-0 font-bold text-[14px] px-4 py-1.5 rounded-full">Log in</a>
         </li>
 
         <!-- Links for logged-in users -->
         <li class="hidden logged-in self-end">
-          <a href="create-listing/index.html" class="text-primary font-bold">Create Listing</a>
+          <a href="../create-listing/index.html" class="text-primary font-bold">Create Listing</a>
         </li>
         <span
           class="hidden logged-in self-end font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
           <strong id="mobileCredits" class="font-normal font-roboto-mono">1001</strong></span>
         <li class="hidden logged-in self-end">
-          <a href="profile/index.html" class="flex items-center gap-2"><img src="./images/placeholder-avatar.png"
+          <a href="../profile/index.html" class="flex items-center gap-2"><img src="./images/placeholder-avatar.png"
               alt="Username avatar" id="mobileAvatar"
               class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /><strong id="mobileUsername"
               class="font-bold text-primary"></strong>
@@ -93,9 +94,56 @@
     </div>
   </header>
 
-  <main class="grow"></main>
+  <main class="grow relative">
+    <!-- Gradient section -->
+    <div class="w-full bg-linear-to-b from-secondary to-neutral-0 absolute h-[850px] z-0">
+      <div
+        class="max-w-[1300px] mx-auto px-5 xl:px-20 flex items-center justify-between my-20 max-[750px]:flex-col max-[750px]:gap-16">
+        <div
+          class="max-w-[480px] max-[960px]:max-w-[350px] max-[750px]:flex max-[750px]:flex-col max-[750px]:items-center max-[750px]:max-w-[400px]">
+          <h1
+            class="font-archivo-black text-[64px] text-primary leading-16 mb-7 max-[960px]:text-5xl max-[750px]:text-center">
+            Discover, <span class="text-accent">Bid,
+            </span>and
+            Win</h1>
+          <p class="text-2xl text-primary mb-15 max-[960px]:text-[18px] max-[750px]:text-center">Join a world of
+            exciting auctions. Explore
+            unique listings or start
+            your
+            own
+            and connect with other
+            bidders.</p>
+          <div class="flex gap-5">
+            <a href="./all-listings/index.html" class="bg-primary border-2 border-primary text-neutral-0 text-[20px] font-bold
+             px-[35px] py-2 rounded-full self-center">Explore</a>
+            <a href="./create-listing/index.html" class="bg-secondary border-2 border-primary text-primary text-[20px] font-bold
+             px-[35px] py-2 rounded-full self-center">Create</a>
+          </div>
+        </div>
+        <img src="./images/hero-section-img.svg" class="max-[960px]:w-[400px] max-[750px]:w-[450px]">
+      </div>
+    </div>
 
-  <footer class="bg-primary px-6 xl:px-20 py-4 ">
+    <div class="px-5 xl:px-20">
+      <div class="max-w-[1600px] mx-auto flex flex-col">
+        <h2
+          class="font-archivo-black text-primary mt-200 mb-6 z-20 relative text-5xl max-[960px]:mt-160 max-[750px]:mt-260 max-[750px]:text-4xl max-[750px]:text-center">
+          Live <span class="font-dm-serif text-accent">Auction</span>
+        </h2>
+        <div id="thumbnailsContainer"
+          class="relative z-10 grid w-full max-[629px]:grid-cols-1 min-[630px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 max-w-[1600px]  mb-20">
+        </div>
+        <a href="./all-listings/index.html"
+          class="text-primary text-[20px] font-bold underline underline-offset-2 text-center self-center mb-36 hover:text-highlight">Browse
+          all
+          listings</a>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="bg-primary px-5 xl:px-20 py-4 ">
     <div class="flex justify-between items-center max-w-[1600px] mx-auto w-full">
       <div class="flex gap-2.5">
         <a><i class="fa-brands fa-square-youtube text-neutral-0 text-2xl"></i></a>
@@ -105,6 +153,9 @@
       <p class="text-neutral-0 text-[14px] text-right ms-4">©2025 BidVerse. All rights reserved.</p>
     </div>
   </footer>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
