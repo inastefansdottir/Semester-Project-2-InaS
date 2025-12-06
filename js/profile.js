@@ -1,4 +1,4 @@
-import { getProfile, getUserListings, getUserBids } from "./api.js";
+import { getProfile, getUserListings, getUserBids, getListingById } from "./api.js";
 import { protectPage } from "./auth.js";
 import { clearStorage } from "./utils.js";
 
@@ -26,6 +26,7 @@ function formatTimeRemaining(endsAt) {
   return `${days}d:${hours}h:${minutes}m:${seconds}s`;
 }
 
+console.log(getUserBids("Salvie"))
 
 // Render function
 function renderThumbnails(listings) {
@@ -36,15 +37,18 @@ function renderThumbnails(listings) {
     return;
   }
 
-
   listings.forEach(listing => {
     const highestBid = listing.bids?.length
       ? Math.max(...listing.bids.map(b => b.amount))
       : 0;
 
-    const thumb = document.createElement("a");
-    thumb.href = `../all-listings/listing.html?id=${listing.id}`;
-    thumb.className = "p-4 rounded-2xl shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300";
+    const thumb = document.createElement("div");
+    thumb.addEventListener("click", () => {
+      window.location.href = `../all-listings/listing.html?id=${listing.id}`;
+    });
+    thumb.className = "p-4 rounded-2xl bg-neutral-0 border border-neutral-300 shadow-[0_6px_16px_0_rgba(102,102,255,0.25)] flex flex-col " +
+      "transition-transform transition-shadow duration-200 " +
+      "hover:scale-[1.02] hover:shadow-[0_6px_16px_0_rgba(102,102,255,0.45)] cursor-pointer";
 
     thumb.innerHTML = `
       <div class="relative">
@@ -74,7 +78,7 @@ function renderThumbnails(listings) {
   });
 }
 
-function renderBidThumbnails(bids) {
+async function renderBidThumbnails(bids) {
   thumbnailsContainer.innerHTML = "";
 
   if (!bids || bids.length === 0) {
@@ -82,44 +86,53 @@ function renderBidThumbnails(bids) {
     return;
   }
 
-  bids.forEach(bid => {
-    const highestBid = bid.bids?.length
-      ? Math.max(...bid.bids.map(b => b.amount))
+  for (const bid of bids) {
+    const fullListing = await getListingById(bid.listing.id);
+
+    const seller = fullListing.seller;
+    const highestBid = fullListing.bids?.length
+      ? Math.max(...fullListing.bids.map(b => b.amount))
       : 0;
 
     const thumb = document.createElement("div");
-    thumb.className = "p-4 rounded-2xl shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300";
+    thumb.addEventListener("click", () => {
+      window.location.href = `../all-listings/listing.html?id=${bid.listing.id}`;
+    });
+    thumb.className = "p-4 rounded-2xl bg-neutral-0 border border-neutral-300 shadow-[0_6px_16px_0_rgba(102,102,255,0.25)] flex flex-col " +
+      "transition-transform transition-shadow duration-200 " +
+      "hover:scale-[1.02] hover:shadow-[0_6px_16px_0_rgba(102,102,255,0.45)] cursor-pointer";
 
     thumb.innerHTML = `
       <div class="relative">
         <div class="relative w-full aspect-square">
-          <img src="${bid.media?.[0].url || bid.image}" alt="${bid.media?.[0].alt || ''}" 
+          <img src="${fullListing.media?.[0].url || bid.image}" alt="${fullListing.media?.[0].alt || ''}" 
                class="absolute inset-0 w-full h-full object-cover rounded-xl">
         </div>
-        <span class="timer-styling text-primary font-bold font-roboto-mono bg-secondary py-1 px-2.5 rounded-full border border-primary absolute top-2 left-2" data-endsAt="${bid.endsAt}"> 
-          <i class="fa-regular fa-clock"></i> ${formatTimeRemaining(bid.endsAt)}
+        <span class="timer-styling text-primary font-bold font-roboto-mono bg-secondary py-1 px-2.5 rounded-full border border-primary absolute top-2 left-2" data-endsAt="${fullListing.endsAt}"> 
+          <i class="fa-regular fa-clock"></i> ${formatTimeRemaining(fullListing.endsAt)}
         </span>
       </div>
       <div class="flex flex-col">
-        <span class="text-[18px] font-bold mt-2.5">${bid.title}</span>
+        <span class="text-[18px] font-bold mt-2.5">${fullListing.title}</span>
         <div class="flex justify-between">
           <span class="text-[14px] text-neutral-500">your bid</span>
           <span class="text-[14px] text-neutral-500">Highest: ${highestBid || 0} Credits</span>
         </div>
         <div class="flex justify-between">
-          <span class="font-bold">${bid.userBid || bid.price || 0} Credits</span>
+          <span class="font-bold">${bid.amount || 0} Credits</span>
           <div class="flex items-center gap-1">
-            <img src="${bid.seller?.avatar?.url || '../images/placeholder-avatar.png'}" 
+            <img src="${seller?.avatar?.url || '../images/placeholder-avatar.png'}" 
                  alt="Username avatar" class="w-[25px] h-[25px] rounded-full object-cover">
-            <strong class="font-bold">${bid.seller?.name || 'Unknown'}</strong>
+            <strong class="font-bold">${seller?.name || 'Unknown'}</strong>
           </div>
         </div>
       </div>
     `;
 
     thumbnailsContainer.appendChild(thumb);
-  });
+  }
 }
+
 
 
 // Tab toggle function

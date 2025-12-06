@@ -54,22 +54,11 @@ function toggleMenuLinks() {
     loggedInLinks.forEach((el) => el.classList.remove("hidden"));
     loggedOutLinks.forEach((el) => el.classList.add("hidden"));
 
-    insertUserNavbarData();
+    loadNavbarUser();
   } else {
     loggedInLinks.forEach((el) => el.classList.add("hidden"));
     loggedOutLinks.forEach((el) => el.classList.remove("hidden"));
   }
-}
-
-function insertUserNavbarData() {
-  const user = JSON.parse(localStorage.getItem("loggedInUser"));
-  if (!user) return;
-
-
-
-
-
-
 }
 
 toggleMenuLinks(); // set links on page load

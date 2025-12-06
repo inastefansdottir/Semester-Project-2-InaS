@@ -148,7 +148,7 @@ export async function getUserBids(username) {
       "X-Noroff-API-Key": NOROFF_API_KEY
     }
   }
-  const response = await fetch(`${AUCTION_PROFILES_URL}/${username}/bids?_seller=true&_bids=true&_listings=true`, fetchOptions);
+  const response = await fetch(`${AUCTION_PROFILES_URL}/${username}/bids?_listings=true`, fetchOptions);
 
   if (!response.ok) {
     throw new Error("Failed to load user bids");
@@ -311,31 +311,4 @@ export async function refreshUserProfile() {
     console.error("Error refreshing user:", err);
     return null;
   }
-}
-
-export async function loadNavbarUser() {
-  const token = getToken("accessToken");
-  const user = JSON.parse(localStorage.getItem("loggedInUser"));
-
-  if (!user || !token) return;
-
-  const response = await fetch(`${AUCTION_PROFILE_URL}/${user.name}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "X-Noroff-API-Key": NOROFF_API_KEY,
-    },
-  });
-
-  const json = await response.json();
-
-  if (!response.ok) return;
-
-  const profile = json.data;
-
-  document.getElementById("desktopCredits").textContent = profile.credits;
-  document.getElementById("mobileCredits").textContent = profile.credits;
-  document.getElementById("navbarAvatar").src =
-    profile.avatar?.url || "../images/placeholder-avatar.png";
-
-  return profile;
 }
