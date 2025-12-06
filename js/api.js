@@ -256,3 +256,86 @@ export async function updateProfile(username, updatedData) {
     return null; // return null on error
   }
 }
+
+export async function bidOnListing(listingId, amount) {
+  try {
+    const accessToken = getToken("accessToken");
+    const fetchOptions = {
+      method: "POST",
+      body: JSON.stringify({ amount }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": NOROFF_API_KEY
+      },
+    };
+    const response = await fetch(`${AUCTION_LISTINGS_URL}/${listingId}/bids`, fetchOptions);
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      console.error("Error updating profile:", json);
+      return null; // return null instead of throwing
+    }
+
+    return json.data;
+  } catch (error) {
+    console.error("Update profile error:", error);
+    return null; // return null on error
+  }
+}
+
+export async function refreshUserProfile() {
+  try {
+    const token = getToken("accessToken");
+
+    const response = await fetch(`${AUCTION_PROFILE_URL}/_me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "X-Noroff-API-Key": NOROFF_API_KEY,
+      },
+    });
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      console.error("Profile refresh failed:", json);
+      return null;
+    }
+
+    // Save updated user to localStorage
+    localStorage.setItem("loggedInUser", JSON.stringify(json.data));
+
+    return json.data;
+  } catch (err) {
+    console.error("Error refreshing user:", err);
+    return null;
+  }
+}
+
+export async function loadNavbarUser() {
+  const token = getToken("accessToken");
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+  if (!user || !token) return;
+
+  const response = await fetch(`${AUCTION_PROFILE_URL}/${user.name}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "X-Noroff-API-Key": NOROFF_API_KEY,
+    },
+  });
+
+  const json = await response.json();
+
+  if (!response.ok) return;
+
+  const profile = json.data;
+
+  document.getElementById("desktopCredits").textContent = profile.credits;
+  document.getElementById("mobileCredits").textContent = profile.credits;
+  document.getElementById("navbarAvatar").src =
+    profile.avatar?.url || "../images/placeholder-avatar.png";
+
+  return profile;
+}

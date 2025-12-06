@@ -1,4 +1,5 @@
-import { getListingById } from "./api.js";
+import { getListingById, bidOnListing } from "./api.js";
+import { loadNavbarUser } from "./navbar.js";
 
 const title = document.getElementById("title");
 const description = document.getElementById("description");
@@ -14,6 +15,18 @@ const highestBidderCredits = document.getElementById("highestBidderCredits");
 
 const biddersContainer = document.getElementById("biddersContainer");
 
+// elemnts for bid function
+const bidForm = document.getElementById("bidForm");
+const bidAmountInput = document.getElementById("bidAmount");
+const bidButton = document.getElementById("bidButton");
+const bidError = document.getElementById("bidError");
+
+const params = new URLSearchParams(window.location.search);
+const listingId = params.get("id");
+
+let currentListing = null; // store latest listing data globally
+
+// Utilities
 function formatBidDate(isoString) {
   const date = new Date(isoString);
 
@@ -55,8 +68,111 @@ function shortenName(name, maxLength = 10) {
   return name.length > maxLength ? name.slice(0, maxLength) + "…" : name;
 }
 
+// Bid list refresh
+async function refreshBidList() {
+  const updated = await getListingById(listingId);
+  currentListing = updated;
 
-function setupListingPage(listing) {
+  biddersContainer.innerHTML = "";
+
+  if (updated.bids.length === 0) {
+    biddersContainer.innerHTML = `<p class="text-neutral-500 self-center">No one has made a bid on this listing yet</p>`;
+    return;
+  }
+
+  updated.bids.forEach(bid => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "grid grid-cols-[57px_1fr] auto-rows-auto";
+
+    const bidTime = formatBidDate(bid.created);
+    const shortName = shortenName(bid.bidder.name);
+
+    wrapper.innerHTML = `
+      <img src="${bid.bidder.avatar.url}" alt="${bid.bidder.avatar.alt}" class="h-[47px] w-[47px] rounded-full object-cover row-span-2">
+      <p class="font-bold text-[18px] col-start-2">Bid: ${bid.amount} credits</p>
+      <div class="flex justify-between col-start-2">
+        <p class="text-neutral-500">By ${shortName}</p>
+        <p class="font-roboto-mono">${bidTime.date} <span class="text-neutral-500 ml-1 max-[485px]:hidden">${bidTime.time}</span></p>
+      </div>
+    `;
+
+    biddersContainer.appendChild(wrapper);
+  });
+}
+
+// Highest bid update
+function updateHighestBid(newAmount) {
+  const LoggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+  highestBidderCredits.textContent = newAmount;
+  highestBidderAvatar.src = LoggedInUser.avatar.url;
+  highestBidderAvatar.alt = LoggedInUser.name;
+}
+
+// Bidding handler
+bidForm.addEventListener("submit", async function (e) {
+  e.preventDefault();
+  bidError.textContent = "";
+
+  const amount = parseInt(bidAmountInput.value);
+
+  // Validate input
+  if (isNaN(amount)) {
+    alert("Please enter a valid number.");
+    return;
+  }
+
+  // Always get newest data before bidding
+  const latest = await getListingById(listingId);
+  currentListing = latest;
+
+  // Check auction ended
+  if (new Date(latest.endsAt) <= new Date()) {
+    bidError.textContent = "This auction has ended.";
+    return;
+  }
+
+  // Check not bidding on own listing
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (user.name === latest.seller.name) {
+    bidError.textContent = "You cannot bid on your own listing.";
+    return;
+  }
+
+  // Determine highest bid
+  const highestBid = latest.bids.length
+    ? Math.max(...latest.bids.map((b) => b.amount))
+    : 0;
+
+  if (amount <= highestBid) {
+    bidError.textContent = `Your bid must be higher than ${highestBid}.`;
+    return;
+  }
+
+  // Send API request
+  const result = await bidOnListing(listingId, amount);
+
+  if (!result) {
+    bidError.textContent = "Failed to place bid. Try again.";
+    return;
+  }
+
+  loadNavbarUser();
+
+  // Success
+  bidAmountInput.value = "";
+  updateHighestBid(amount);
+  await refreshBidList();
+
+  const updatedUser = await refreshUserProfile();
+  if (updatedUser) {
+    updateNavbarCredits(updatedUser.credits);
+  }
+})
+
+async function setupListingPage(listing) {
+  currentListing = listing;
+
   // Update page content dynamically
   document.title = `BidVerse | Listings | ${listing.title}`;
   title.textContent = listing.title;
@@ -112,6 +228,9 @@ function setupListingPage(listing) {
   updateEndsAt();
   setInterval(updateEndsAt, 1000);
 
+  setInterval(refreshBidList, 10000);
+
+
   // All bids section
   listing.bids.forEach(bid => {
     const wrapper = document.createElement("div");
@@ -140,6 +259,23 @@ function setupListingPage(listing) {
     biddersContainer.appendChild(paragraph);
   }
 
+  const LoggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+  if (LoggedInUser.name === listing.seller.name) {
+    disableBidButton("You cannot bid on your own listing");
+  }
+
+  if (new Date(listing.endsAt) <= new Date()) {
+    disableBidButton("This auction has ended");
+  }
+
+}
+
+function disableBidButton(message) {
+  bidButton.disabled = true;
+  bidButton.classList.remove("bg-primary", "text-neutral-0");
+  bidButton.classList.add("bg-accent", "text-secondary");
+  bidError.textContent = message;
 }
 
 async function fetchListingPage(listingId) {
@@ -153,8 +289,5 @@ async function fetchListingPage(listingId) {
     console.error("Error fetching listing data:", error);
   }
 }
-
-const params = new URLSearchParams(window.location.search);
-const listingId = params.get("id");
 
 fetchListingPage(listingId);

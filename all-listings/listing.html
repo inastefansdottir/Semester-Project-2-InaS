@@ -107,26 +107,30 @@
         </div>
 
         <!-- Highest Bidder + Timer + Bidding -->
-        <div
-          class="w-full py-4 px-5 rounded-2xl bg-neutral-0 shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300 flex justify-between">
-          <div>
-            <p class="text-neutral-500">Sale ends in</p>
-            <p id="endsAt" class="font-roboto-mono text-[20px] text-primary mb-1 max-[485px]:text-[18px]"></p>
-            <p class="text-neutral-500">Highest bid</p>
-            <div class="flex items-center gap-1.5 mt-1.5">
-              <img id="highestBidderAvatar" src="../images/placeholder-avatar.png"
-                class="w-7 h-7 rounded-full border-2 border-primary object-cover">
-              <p class="font-bold text-primary"><span id="highestBidderCredits" class="font-roboto-mono"></span>
-                Credits</p>
+        <div>
+          <div
+            class="w-full py-4 px-5 rounded-2xl bg-neutral-0 shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300 flex justify-between">
+            <div>
+              <p class="text-neutral-500">Sale ends in</p>
+              <p id="endsAt" class="font-roboto-mono text-[20px] text-primary mb-1 max-[485px]:text-[18px]"></p>
+              <p class="text-neutral-500">Highest bid</p>
+              <div class="flex items-center gap-1.5 mt-1.5">
+                <img id="highestBidderAvatar" src="../images/placeholder-avatar.png"
+                  class="w-7 h-7 rounded-full border-2 border-primary object-cover">
+                <p class="font-bold text-primary"><span id="highestBidderCredits" class="font-roboto-mono"></span>
+                  Credits</p>
+              </div>
             </div>
+            <form id="bidForm" class="w-[165px] flex flex-col max-[485px]:w-[130px]">
+              <label for="bidAmount" class="text-primary">Bid amount:</label>
+              <input type="number" name="bidAmount" id="bidAmount"
+                class="text-primary text-[20px] border-b-2 border-primary w-full focus:outline-none">
+
+              <button id="bidButton" type="submit" class="bg-primary text-neutral-0 font-bold
+             px-5 py-[7px] rounded-full mt-auto cursor-pointer">Place bid</button>
+            </form>
           </div>
-          <form class="w-[165px] flex flex-col max-[485px]:w-[130px]">
-            <label for="bidAmount" class="text-primary">Bid amount:</label>
-            <input type="number" name="bidAmount" id="bidAmount"
-              class="text-primary text-[20px] border-b-2 border-primary w-full focus:outline-none">
-            <button type="submit" class="bg-primary text-neutral-0 font-bold
-             px-5 py-[7px] rounded-full mt-auto">Place bid</button>
-          </form>
+          <p class="min-h-3.5 text-[14px] text-error text-right mt-1 mb-2" id="bidError"></p>
         </div>
       </div>
 
