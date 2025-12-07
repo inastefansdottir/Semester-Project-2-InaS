@@ -173,6 +173,7 @@ bidForm.addEventListener("submit", async function (e) {
 async function setupListingPage(listing) {
   currentListing = listing;
 
+
   // Update page content dynamically
   document.title = `BidVerse | Listings | ${listing.title}`;
   title.textContent = listing.title;
@@ -261,6 +262,12 @@ async function setupListingPage(listing) {
 
   const LoggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
+  // If no user is logged in, disable the bid button
+  if (!LoggedInUser) {
+    disableBidButton("You must be logged in to bid");
+    return; // Stop further setup related to bidding
+  }
+
   if (LoggedInUser.name === listing.seller.name) {
     disableBidButton("You cannot bid on your own listing");
   }
@@ -273,7 +280,7 @@ async function setupListingPage(listing) {
 
 function disableBidButton(message) {
   bidButton.disabled = true;
-  bidButton.classList.remove("bg-primary", "text-neutral-0");
+  bidButton.classList.remove("bg-primary", "text-neutral-0", "cursor-pointer");
   bidButton.classList.add("bg-accent", "text-secondary");
   bidError.textContent = message;
 }

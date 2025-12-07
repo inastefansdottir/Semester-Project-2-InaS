@@ -312,3 +312,49 @@ export async function refreshUserProfile() {
     return null;
   }
 }
+
+export async function updateListing(listingId, payload) {
+  try {
+    const accessToken = getToken("accessToken");
+    const fetchOptions = {
+      method: "PUT",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": NOROFF_API_KEY
+      }
+    };
+    const response = await fetch(`${AUCTION_LISTINGS_URL}/${listingId}`, fetchOptions);
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      console.error("Failed to update listing:", json);
+      return null; // return null instead of throwing
+    }
+
+    return json.data;
+  } catch (error) {
+    console.error("Error in updateListing:", error);
+    return null; // return null on error
+  }
+}
+
+export async function deleteListing(id) {
+  const accessToken = getToken("accessToken");
+  const res = await fetch(`${AUCTION_LISTINGS_URL}/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "X-Noroff-API-Key": NOROFF_API_KEY
+    }
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.errors?.[0]?.message || "Failed to delete listing");
+  }
+
+  return true;
+}

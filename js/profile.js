@@ -26,8 +26,6 @@ function formatTimeRemaining(endsAt) {
   return `${days}d:${hours}h:${minutes}m:${seconds}s`;
 }
 
-console.log(getUserBids("Salvie"))
-
 // Render function
 function renderThumbnails(listings) {
   thumbnailsContainer.innerHTML = "";
@@ -59,6 +57,9 @@ function renderThumbnails(listings) {
         <span class="timer-styling text-primary font-bold font-roboto-mono bg-secondary py-1 px-2.5 rounded-full border border-primary absolute top-2 left-2" data-endsAt="${listing.endsAt}"> 
           <i class="fa-regular fa-clock"></i> ${formatTimeRemaining(listing.endsAt)}
         </span>
+        <button class="edit-button text-neutral-0 font-bold font-roboto-mono bg-primary border border-neutral-0 py-[5px] px-2.5 rounded-full absolute top-2 right-2 cursor-pointer"> 
+          <i class="fa-solid fa-pen"></i>
+        </button>
       </div>
       <div class="flex flex-col">
         <span class="text-[18px] font-bold mt-2.5">${listing.title}</span>
@@ -75,6 +76,12 @@ function renderThumbnails(listings) {
     `;
 
     thumbnailsContainer.appendChild(thumb);
+
+    const editBtn = thumb.querySelector(".edit-button");
+    editBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      window.location.href = `../profile/edit-listing.html?id=${listing.id}`;
+    });
   });
 }
 

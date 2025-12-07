@@ -159,14 +159,14 @@ form.addEventListener("submit", async (e) => {
   if (!title) {
     titleError.textContent = "Title is required";
     titleInput.classList.add("outline-error");
-    titleInput.classList.remove("outline-none");
+    titleInput.classList.remove("outline-primary");
     hasError = true;
   }
 
   if (!description) {
     descriptionError.textContent = "Description is required";
     descriptionInput.classList.add("outline-error");
-    descriptionInput.classList.remove("outline-none");
+    descriptionInput.classList.remove("outline-primary");
     hasError = true;
   }
 
@@ -178,7 +178,7 @@ form.addEventListener("submit", async (e) => {
   if (!endsAtValue) {
     endsAtError.textContent = "End date is required";
     endsAtInput.classList.add("outline-error");
-    endsAtInput.classList.remove("outline-none");
+    endsAtInput.classList.remove("outline-primary");
     hasError = true;
   }
 
