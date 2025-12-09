@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BidVerse | Log in</title>
+  <title>BidVerse | All listings</title>
   <link rel="stylesheet" href="../dist/output.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -123,8 +123,36 @@
       </div>
     </div>
 
+    <!-- Sort Buttons -->
+    <div id="sortButtons" class="flex flex-wrap gap-3 justify-center mt-130 relative z-10">
+      <button data-sort="endingSoon"
+        class="sort-btn bg-secondary border border-primary text-primary px-4 py-2 rounded-full font-bold cursor-pointer">
+        Ending Soon
+      </button>
+
+      <button data-sort="newest"
+        class="sort-btn bg-secondary border border-primary text-primary px-4 py-2 rounded-full font-bold cursor-pointer">
+        Newest
+      </button>
+
+      <button data-sort="lowestBid"
+        class="sort-btn bg-secondary border border-primary text-primary px-4 py-2 rounded-full font-bold cursor-pointer">
+        Lowest Bid
+      </button>
+
+      <button data-sort="highestBid"
+        class="sort-btn bg-secondary border border-primary text-primary px-4 py-2 rounded-full font-bold cursor-pointer">
+        Highest Bid
+      </button>
+
+      <button data-sort="mostBids"
+        class="sort-btn bg-secondary border border-primary text-primary px-4 py-2 rounded-full font-bold cursor-pointer">
+        Most Bids
+      </button>
+    </div>
+
     <div id="thumbnailsContainer"
-      class="relative z-10 grid w-full mt-120 max-[629px]:grid-cols-1 min-[630px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 max-w-[1600px] mx-auto px-5 xl:px-20 mb-20">
+      class="relative z-10 grid w-full mt-10 max-[629px]:grid-cols-1 min-[630px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 max-w-[1600px] mx-auto px-5 xl:px-20 mb-20">
     </div>
 
     <div class="flex justify-center mt-6">

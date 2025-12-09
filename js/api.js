@@ -285,34 +285,6 @@ export async function bidOnListing(listingId, amount) {
   }
 }
 
-export async function refreshUserProfile() {
-  try {
-    const token = getToken("accessToken");
-
-    const response = await fetch(`${AUCTION_PROFILE_URL}/_me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "X-Noroff-API-Key": NOROFF_API_KEY,
-      },
-    });
-
-    const json = await response.json();
-
-    if (!response.ok) {
-      console.error("Profile refresh failed:", json);
-      return null;
-    }
-
-    // Save updated user to localStorage
-    localStorage.setItem("loggedInUser", JSON.stringify(json.data));
-
-    return json.data;
-  } catch (err) {
-    console.error("Error refreshing user:", err);
-    return null;
-  }
-}
-
 export async function updateListing(listingId, payload) {
   try {
     const accessToken = getToken("accessToken");
@@ -343,7 +315,7 @@ export async function updateListing(listingId, payload) {
 
 export async function deleteListing(id) {
   const accessToken = getToken("accessToken");
-  const res = await fetch(`${AUCTION_LISTINGS_URL}/${id}`, {
+  const response = await fetch(`${AUCTION_LISTINGS_URL}/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -351,10 +323,37 @@ export async function deleteListing(id) {
     }
   });
 
-  if (!res.ok) {
-    const err = await res.json();
+  if (!response.ok) {
+    const err = await response.json();
     throw new Error(err.errors?.[0]?.message || "Failed to delete listing");
   }
 
   return true;
+}
+
+export async function searchListings(query) {
+  try {
+    const accessToken = getToken("accessToken");
+    const fetchOptions = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": NOROFF_API_KEY
+      }
+    };
+
+    const response = await fetch(
+      `${AUCTION_LISTINGS_URL}/search?q=${query}`,
+      fetchOptions
+    );
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw new Error(json.errors?.[0]?.message || "Failed to search listings");
+    }
+
+    return json.data;
+  } catch (error) {
+    console.log(error);
+  }
 }

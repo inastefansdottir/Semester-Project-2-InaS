@@ -1,4 +1,4 @@
-import { fetchListings } from "./api.js";
+import { fetchListings, searchListings } from "./api.js";
 
 // The container where all listing thumbnails will be displayed
 const thumbnailsContainer = document.getElementById("thumbnailsContainer")
@@ -6,9 +6,91 @@ const thumbnailsContainer = document.getElementById("thumbnailsContainer")
 // The "load more" button element
 const loadMoreBtn = document.getElementById("loadMoreBtn")
 
+const form = document.getElementById("searchForm");
+const input = document.getElementById("search");
+
+// All sort buttons in the UI
+const sortButtons = document.querySelectorAll(".sort-btn");
+// Empty by default so the page loads unsorted
+let currentSort = "";
+
 let currentPage = 1; // Track which page os listings we are currently on
 let isLoading = false; // Prevent multiple simultaneous requests
 let hasMore = true; // Track whether more pages exist
+
+// Helper: returns the highest bid amount for a listing
+function getHighestBid(listing) {
+  return listing.bids?.length ? Math.max(...listing.bids.map(b => b.amount)) : 0;
+}
+
+// Sort listings depending on the type the user selected
+function sortListings(listings, type) {
+  switch (type) {
+    case "endingSoon":
+      // Closest end date first
+      return listings.sort((a, b) => new Date(a.endsAt) - new Date(b.endsAt));
+
+    case "newest":
+      // Latest created first
+      return listings.sort((a, b) => new Date(b.created) - new Date(a.created));
+
+    case "lowestBid":
+      return listings.sort((a, b) => getHighestBid(a) - getHighestBid(b));
+
+    case "highestBid":
+      return listings.sort((a, b) => getHighestBid(b) - getHighestBid(a));
+
+    case "mostBids":
+      return listings.sort((a, b) => (b.bids?.length || 0) - (a.bids?.length || 0));
+
+    default:
+      // no sorting applied
+      return listings;
+  }
+}
+
+/**
+ * When user clicks a sort button:
+ * update the button UI
+ * change currentSort
+ * re-sort already loaded listings
+ */
+sortButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    // Reset styling on ALL buttons
+    sortButtons.forEach(b => {
+      b.classList.remove("bg-primary", "text-neutral-0");
+      b.classList.add("bg-secondary", "text-primary");
+    });
+
+    // Highlight the active button
+    btn.classList.add("bg-primary", "text-neutral-0");
+    btn.classList.remove("bg-secondary", "text-primary");
+
+    // Set current sort
+    currentSort = btn.dataset.sort;
+
+    // Re-render with sorting applied
+    applySortingToRenderedListings();
+  });
+});
+
+/**
+ * Takes the thumbnails that are already on screen
+ * and re-sorts them using the current sort type.
+ */
+function applySortingToRenderedListings() {
+  const cards = Array.from(thumbnailsContainer.children);
+
+  // Each thumbnail has its full listing object stored in _data
+  const listings = cards.map(card => card._data).filter(Boolean);
+
+  const sorted = sortListings(listings, currentSort);
+
+  // Re-render the sorted list
+  renderThumbnails(sorted);
+}
+
 
 /**
  * Converts an end date into a readable countdown string
@@ -28,6 +110,56 @@ function formatTimeRemaining(endsAt) {
 
   return `${days}d:${hours}h:${minutes}m:${seconds}s`;
 }
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const query = input.value.trim();
+  if (!query) return;
+
+  try {
+    const results = await searchListings(query);
+
+    if (results.length === 0) {
+      thumbnailsContainer.innerHTML = `
+        <p class="text-center text-primary text-xl font-bold mt-10">No results found.</p>
+      `;
+      return;
+    }
+
+    renderThumbnails(results); // replaces old thumbnails
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+input.addEventListener("input", async () => {
+  loadMoreBtn.style.display = "none";
+
+  const query = input.value.trim();
+
+  if (!query) {
+    thumbnailsContainer.innerHTML = "";
+    currentPage = 1;
+    hasMore = true;
+    loadMoreBtn.style.display = "block"; // show load-more again
+    loadNextPage(); // reload normal listings
+    return;
+  }
+
+  const results = await searchListings(query);
+
+  if (results.length === 0) {
+    thumbnailsContainer.innerHTML = `
+      <p class="text-center text-primary text-xl font-bold mt-10">No results found.</p>
+    `;
+    return;
+  }
+
+  const sorted = sortListings(results, currentSort);
+  renderThumbnails(sorted);
+});
+
 
 /**
  * Render thumbnails for a list of listings
@@ -80,6 +212,9 @@ function renderThumbnails(listings, replace = true) {
     `;
 
     thumbnailsContainer.appendChild(thumb);
+
+    thumb._data = listing; // store listing data inside the element
+
   });
 }
 
@@ -115,9 +250,6 @@ async function loadNextPage() {
       return false; // older than 3 days > skip
     });
 
-    // Sort newest first
-    filtered.sort((a, b) => new Date(b.created) - new Date(a.created));
-
     // Skip empty pages automatically
     if (filtered.length === 0) {
       console.log(`Skipping empty page ${currentPage}`);
@@ -129,7 +261,9 @@ async function loadNextPage() {
     }
 
     // Append filtered listings to container
-    renderThumbnails(filtered, false);
+    const sorted = sortListings(filtered, currentSort);
+    renderThumbnails(sorted, false);
+
 
     currentPage++; // Move to next page for future requests
   } catch (error) {
@@ -166,3 +300,4 @@ function updateAllTimers() {
     }
   });
 }
+

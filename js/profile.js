@@ -169,6 +169,8 @@ async function loadProfile() {
   const avatar = document.getElementById("avatar");
   const banner = document.getElementById("banner");
 
+  document.title = `BidVerse | Profile | ${profile.data.name}`;
+
   username.textContent = profile.data.name || "Username";
   credits.textContent = profile.data.credits || 0;
   bio.textContent = profile.data.bio || "User has no bio..";
