@@ -74,4 +74,20 @@ function closeMenuFunc() {
 hamburger.addEventListener("click", openMenu);
 closeMenu.addEventListener("click", closeMenuFunc);
 
+// Close menu when clicking outside of it
+document.addEventListener("click", (event) => {
+  const isMenuOpen = !mobileMenu.classList.contains("translate-x-full");
+
+  // If menu is closed, do nothing
+  if (!isMenuOpen) return;
+
+  // If click is inside menu OR on hamburger, do nothing
+  if (mobileMenu.contains(event.target) || hamburger.contains(event.target)) {
+    return;
+  }
+
+  // Otherwise close the menu
+  closeMenuFunc();
+});
+
 loadNavbarUser();

@@ -61,15 +61,19 @@ function renderThumbnails(listings) {
           <i class="fa-solid fa-pen"></i>
         </button>
       </div>
-      <div class="flex flex-col">
-        <span class="text-[18px] font-bold mt-2.5">${listing.title}</span>
-        <span class="text-[14px] text-neutral-500">current bid</span>
-        <div class="flex justify-between">
-          <span class="font-bold">${highestBid || 0} Credits</span>
-          <div class="flex items-center gap-1">
-            <img src="${listing.seller?.avatar?.url || '../images/placeholder-avatar.png'}" 
-                 alt="Username avatar" class="w-[25px] h-[25px] rounded-full object-cover">
-            <strong class="font-bold">${listing.seller?.name || 'Unknown'}</strong>
+      <div class="flex flex-col h-full">
+        <span class="text-[18px] font-bold mt-2.5 wrap-break line-clamp-2">${listing.title}</span>
+        <div class="mt-auto">
+          <span class="text-[14px] text-neutral-500">current bid</span>
+          <div class="flex justify-between">
+            <span class="font-bold">${highestBid || 0} Credits</span>
+            <div class="flex items-center gap-1">
+              <img src="${listing.seller?.avatar?.url || '../images/placeholder-avatar.png'}" 
+                alt="Username avatar" class="w-[25px] h-[25px] rounded-full object-cover">
+              <strong class="font-bold max-w-20 truncate block">
+                ${listing.seller?.name || 'Unknown'}
+              </strong>
+            </div>
           </div>
         </div>
       </div>
@@ -119,18 +123,20 @@ async function renderBidThumbnails(bids) {
           <i class="fa-regular fa-clock"></i> ${formatTimeRemaining(fullListing.endsAt)}
         </span>
       </div>
-      <div class="flex flex-col">
-        <span class="text-[18px] font-bold mt-2.5">${fullListing.title}</span>
-        <div class="flex justify-between">
-          <span class="text-[14px] text-neutral-500">your bid</span>
-          <span class="text-[14px] text-neutral-500">Highest: ${highestBid || 0} Credits</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="font-bold">${bid.amount || 0} Credits</span>
-          <div class="flex items-center gap-1">
-            <img src="${seller?.avatar?.url || '../images/placeholder-avatar.png'}" 
-                 alt="Username avatar" class="w-[25px] h-[25px] rounded-full object-cover">
-            <strong class="font-bold">${seller?.name || 'Unknown'}</strong>
+      <div class="flex flex-col h-full">
+        <div class="mt-auto">
+          <span class="text-[18px] font-bold mt-2.5 wrap-break line-clamp-2">${fullListing.title}</span>
+          <div class="flex justify-between">
+            <span class="text-[14px] text-neutral-500">your bid</span>
+            <span class="text-[14px] text-neutral-500">Highest: ${highestBid || 0} Credits</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-bold">${bid.amount || 0} Credits</span>
+            <div class="flex items-center gap-1">
+              <img src="${seller?.avatar?.url || '../images/placeholder-avatar.png'}" 
+                  alt="Username avatar" class="w-[25px] h-[25px] rounded-full object-cover">
+              <strong class="font-bold max-w-25 truncate block">${seller?.name || 'Unknown'}</strong>
+            </div>
           </div>
         </div>
       </div>
