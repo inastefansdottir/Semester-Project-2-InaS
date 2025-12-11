@@ -192,15 +192,16 @@ async function setupListingPage(listing) {
     highestBidderCredits.textContent = highestBid.amount;
     highestBidderAvatar.src = highestBid.bidder.avatar.url || "../images/placeholder-avatar.png";
     highestBidderAvatar.alt = highestBid.bidder.avatar.alt || "Highest bidder avatar";
+    document.getElementById("meta-description")?.setAttribute("content", `Place your bids on ${listing.title}. Current highest bid: ${highestBid.amount} credits. Join the auction on BidVerse today!`);
   } else {
     // There are no bids
     highestBidderCredits.textContent = "0";
     highestBidderAvatar.src = "../images/placeholder-avatar.png";
     highestBidderAvatar.alt = "No bids yet";
+    document.getElementById("meta-description")?.setAttribute("content", `Place your bids on ${listing.title}. Current highest bid: 0. Join the auction on BidVerse today!`);
   }
 
   document.getElementById("meta-title")?.setAttribute("content", `BidVerse | Listings | ${listing.title}`);
-  document.getElementById("meta-description")?.setAttribute("content", `Place your bids on ${listing.title}. Current highest bid: ${highestBid.amount} credits. Join the auction on BidVerse today!`);
 
   // Image gallery section
   mainThumbnail.src = listing.media[0]?.url || "../images/no-image.png"
