@@ -1,5 +1,5 @@
 import { updateProfile, getProfile } from "./api.js";
-import { getToken, clearStorage } from "./utils.js";
+import { clearStorage } from "./utils.js";
 
 const avatarImg = document.getElementById("avatarImg");
 const bannerImg = document.getElementById("bannerImg");
@@ -97,7 +97,7 @@ async function loadProfile() {
     originalBio = profile.data.bio || "";
 
   } catch (err) {
-    console.error("Error loading profile:", err);
+    alert("Failed to load profile. Please refresh the page.");
   }
 }
 
@@ -142,7 +142,6 @@ saveBtn.addEventListener("click", async (e) => {
     // Redirect to profile page
     window.location.href = "/profile/index.html"
   } catch (err) {
-    console.error("Error updating profile:", err);
     alert("Failed to update profile.");
   }
 })

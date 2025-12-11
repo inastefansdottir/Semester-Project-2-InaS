@@ -32,7 +32,7 @@ export async function registerUser(userDetails) {
       ...json
     };
   } catch (error) {
-    console.log(error)
+    throw error;
   }
 }
 
@@ -105,7 +105,6 @@ export async function getProfile(username, accessToken = getToken("accessToken")
 
     return response.json();
   } catch (error) {
-    console.error("Profile fetch error:", error);
     throw error;
   }
 }
@@ -176,7 +175,7 @@ export async function fetchListings(page = 1, limit = 20) {
     const json = await response.json();
     return json.data;
   } catch (error) {
-    console.log(error);
+    throw error;;
   }
 }
 
@@ -197,7 +196,7 @@ export async function getListingById(listingId) {
     const json = await response.json();
     return json.data;
   } catch (error) {
-    console.log(error);
+    throw error;;
   }
 }
 
@@ -218,14 +217,12 @@ export async function createListing(listingData) {
     const json = await response.json();
 
     if (!response.ok) {
-      console.error("Failed to create listing:", json);
       return null; // return null instead of throwing
     }
 
     return json.data;
   } catch (error) {
-    console.error("Error in createListing:", error);
-    return null; // return null on error
+    throw error;
   }
 }
 
@@ -246,14 +243,12 @@ export async function updateProfile(username, updatedData) {
     const json = await response.json();
 
     if (!response.ok) {
-      console.error("Error updating profile:", json);
       return null; // return null instead of throwing
     }
 
     return json.data;
   } catch (error) {
-    console.error("Update profile error:", error);
-    return null; // return null on error
+    throw error;
   }
 }
 
@@ -274,14 +269,12 @@ export async function bidOnListing(listingId, amount) {
     const json = await response.json();
 
     if (!response.ok) {
-      console.error("Error updating profile:", json);
       return null; // return null instead of throwing
     }
 
     return json.data;
   } catch (error) {
-    console.error("Update profile error:", error);
-    return null; // return null on error
+    throw error;
   }
 }
 
@@ -302,14 +295,12 @@ export async function updateListing(listingId, payload) {
     const json = await response.json();
 
     if (!response.ok) {
-      console.error("Failed to update listing:", json);
       return null; // return null instead of throwing
     }
 
     return json.data;
   } catch (error) {
-    console.error("Error in updateListing:", error);
-    return null; // return null on error
+    throw error;
   }
 }
 
@@ -354,6 +345,6 @@ export async function searchListings(query) {
 
     return json.data;
   } catch (error) {
-    console.log(error);
+    throw error;;
   }
 }

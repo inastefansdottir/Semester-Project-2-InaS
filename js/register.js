@@ -131,7 +131,6 @@ async function onRegisterFormSubmit(event) {
   } catch (error) {
     errorMsg.classList.remove("hidden");
     errorMsg.innerHTML = `<p class="error-message">${errorIcon} We can't reach the server right now. Please check your connection and try again.</p>`
-    console.error(error);
   }
 }
 

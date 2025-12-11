@@ -21,6 +21,8 @@ const bidAmountInput = document.getElementById("bidAmount");
 const bidButton = document.getElementById("bidButton");
 const bidError = document.getElementById("bidError");
 
+const LoggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
 const params = new URLSearchParams(window.location.search);
 const listingId = params.get("id");
 
@@ -105,8 +107,6 @@ async function refreshBidList() {
 
 // Highest bid update
 function updateHighestBid(newAmount) {
-  const LoggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-
   highestBidderCredits.textContent = newAmount;
   highestBidderAvatar.src = LoggedInUser.avatar.url;
   highestBidderAvatar.alt = LoggedInUser.name;
@@ -121,7 +121,7 @@ bidForm.addEventListener("submit", async function (e) {
 
   // Validate input
   if (isNaN(amount)) {
-    alert("Please enter a valid number.");
+    bidError.textContent = "Please enter a valid number.";
     return;
   }
 
@@ -135,20 +135,19 @@ bidForm.addEventListener("submit", async function (e) {
     return;
   }
 
-  // Check not bidding on own listing
-  const user = JSON.parse(localStorage.getItem("loggedInUser"));
-  if (user.name === latest.seller.name) {
-    bidError.textContent = "You cannot bid on your own listing.";
-    return;
-  }
-
   // Determine highest bid
   const highestBid = latest.bids.length
     ? Math.max(...latest.bids.map((b) => b.amount))
     : 0;
 
+
   if (amount <= highestBid) {
     bidError.textContent = `Your bid must be higher than ${highestBid}.`;
+    return;
+  }
+
+  if (amount > LoggedInUser.credits) {
+    bidError.textContent = `You dont have enough credits. Current credits: ${LoggedInUser.credits}`;
     return;
   }
 
@@ -231,8 +230,6 @@ async function setupListingPage(listing) {
 
   await refreshBidList();
 
-  const LoggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-
   // If no user is logged in, disable the bid button
   if (!LoggedInUser) {
     disableBidButton("You must be logged in to bid");
@@ -260,11 +257,10 @@ async function fetchListingPage(listingId) {
   try {
     const data = await getListingById(listingId);
 
-    console.log("Listing data:", data);
-
     setupListingPage(data);
   } catch (error) {
-    console.error("Error fetching listing data:", error);
+    alert("Failed to load the listing. Please try again.");
+    window.location.href = "index.html"
   }
 }
 

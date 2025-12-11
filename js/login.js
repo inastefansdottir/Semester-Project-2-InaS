@@ -91,8 +91,6 @@ async function onLoginFormSubmit(event) {
       window.location.href = "../profile/index.html"
     }
   } catch (error) {
-    console.error(error);
-
     const errorIcon =
       '<ion-icon name="alert-circle" class="alert-circle"></ion-icon>';
 

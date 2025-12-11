@@ -217,7 +217,6 @@ form.addEventListener("submit", async (e) => {
     alert("Listing updated!");
     window.location.href = "../profile/index.html";
   } catch (err) {
-    console.error(err);
     imageError.textContent = err.message || "Failed to update listing";
   }
 });

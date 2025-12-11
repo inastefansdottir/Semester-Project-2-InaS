@@ -243,7 +243,6 @@ form.addEventListener("submit", async (e) => {
     }
 
   } catch (err) {
-    console.error(err);
     imageError.textContent = err.message || "Failed to create listing";
   } finally {
     submitBtn.disabled = false;

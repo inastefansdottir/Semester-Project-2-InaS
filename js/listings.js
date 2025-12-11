@@ -82,7 +82,7 @@ sortButtons.forEach(btn => {
 function applySortingToRenderedListings() {
   const cards = Array.from(thumbnailsContainer.children);
 
-  // Each thumbnail has its full listing object stored in _data
+  // Each thumbnail has its full listing object stored in data
   const listings = cards.map(card => card._data).filter(Boolean);
 
   const sorted = sortListings(listings, currentSort);
@@ -121,15 +121,21 @@ form.addEventListener("submit", async (e) => {
     const results = await searchListings(query);
 
     if (results.length === 0) {
+      thumbnailsContainer.classList.remove("grid");
       thumbnailsContainer.innerHTML = `
-        <p class="text-center text-primary text-xl font-bold mt-10">No results found.</p>
+        <p class="text-center text-primary text-xl font-bold pt-10">No results found.</p>
       `;
       return;
     }
 
     renderThumbnails(results); // replaces old thumbnails
   } catch (err) {
-    console.error(err);
+    thumbnailsContainer.innerHTML = `
+    <p class="text-center text-primary text-xl font-bold pt-10">
+      Failed to search listings. Please try again.
+    </p>
+  `;
+    thumbnailsContainer.classList.remove("grid");
   }
 });
 
@@ -150,8 +156,9 @@ input.addEventListener("input", async () => {
   const results = await searchListings(query);
 
   if (results.length === 0) {
+    thumbnailsContainer.classList.remove("grid");
     thumbnailsContainer.innerHTML = `
-      <p class="text-center text-primary text-xl font-bold mt-10">No results found.</p>
+      <p class="text-center text-primary text-xl font-bold pt-10">No results found.</p>
     `;
     return;
   }
@@ -252,7 +259,6 @@ async function loadNextPage() {
 
     // Skip empty pages automatically
     if (filtered.length === 0) {
-      console.log(`Skipping empty page ${currentPage}`);
       currentPage++;
       isLoading = false;
       loadMoreBtn.disabled = false;
@@ -267,7 +273,12 @@ async function loadNextPage() {
 
     currentPage++; // Move to next page for future requests
   } catch (error) {
-    console.error(error);
+    thumbnailsContainer.classList.remove("grid");
+    thumbnailsContainer.innerHTML = `
+    <p class="text-center text-primary text-xl font-bold pt-10">
+      Failed to load listings. Please try again.
+    </p>
+  `;
   }
 
   isLoading = false;
