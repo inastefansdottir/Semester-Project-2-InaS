@@ -27,6 +27,7 @@ const cancelButton = document.getElementById("cancelButton");
 const params = new URLSearchParams(window.location.search);
 const listingId = params.get("id");
 
+
 // Function to clear errors as user types
 function clearFieldError(inputElement, errorElement) {
   inputElement.classList.remove("outline-error");
@@ -53,6 +54,11 @@ async function fetchListing() {
 
   // Get existing listing from API
   const listing = await getListingById(listingId);
+
+  document.title = `BidVerse | Edit Listing | ${listing.title}`;
+
+  document.getElementById("meta-title")?.setAttribute("content", `BidVerse | Edit Listing | ${listing.title}`);
+  document.getElementById("meta-description")?.setAttribute("content", `Update your listing "${listing.title}" on BidVerse. Modify title, description, images, and auction details.`);
 
   // Prefill title + description
   titleInput.value = listing.title;

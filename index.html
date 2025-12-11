@@ -5,7 +5,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BidVerse | Home</title>
-  <link rel="stylesheet" href="../dist/output.css" />
+  <meta name="title" content="BidVerse | Home">
+  <meta name="description"
+    content="BidVerse is an online auction platform where anyone can create listings and bid on items. Join today and start bidding on your favorite items!">
+  <link rel="stylesheet" href="./dist/output.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -20,32 +23,32 @@
   <header class="bg-secondary px-5 xl:px-20 py-4 sticky top-0 z-100 ">
     <nav class="flex items-center justify-between max-w-[1600px] mx-auto w-full">
       <!-- Logo -->
-      <img src="../images/logo.svg" alt="BidVerse logo" class="h-[30px] w-auto" />
+      <img src="./images/logo.svg" alt="BidVerse logo" class="h-[30px] w-auto" />
 
       <!-- Desktop Menu -->
       <ul id="nav-links" class="hidden md:flex gap-8 items-center">
         <!-- Links for all users -->
         <li>
-          <a href="../index.html" class="text-highlight font-bold">Home</a>
+          <a href="./index.html" class="text-highlight font-bold">Home</a>
         </li>
         <li>
-          <a href="../all-listings/index.html" class="text-primary font-bold hover:text-highlight">Browse Listings</a>
+          <a href="./all-listings/index.html" class="text-primary font-bold hover:text-highlight">Browse Listings</a>
         </li>
         <li class="logged-out">
-          <a href="../login/index.html"
+          <a href="./login/index.html"
             class="bg-primary text-neutral-0 font-bold text-[14px] px-4 py-1.5 rounded-full hover:bg-accent transition-colors duration-200">Log
             in</a>
         </li>
 
         <!-- Links for logged-in users -->
         <li class="hidden logged-in">
-          <a href="../create-listing/index.html" class="text-primary font-bold hover:text-highlight">Create Listing</a>
+          <a href="./create-listing/index.html" class="text-primary font-bold hover:text-highlight">Create Listing</a>
         </li>
         <span
           class="hidden logged-in font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
           <strong id="desktopCredits" class="font-normal font-roboto-mono"></strong></span>
         <li class="hidden logged-in">
-          <a href="../profile/index.html"><img src="" alt="Username avatar" id="desktopAvatar"
+          <a href="./profile/index.html"><img src="" alt="Username avatar" id="desktopAvatar"
               class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /></a>
         </li>
       </ul>
@@ -113,10 +116,12 @@
             and connect with other
             bidders.</p>
           <div class="flex gap-5">
-            <a href="./all-listings/index.html" class="bg-primary border-2 border-primary text-neutral-0 text-[20px] font-bold
-             px-[35px] py-2 rounded-full self-center">Explore</a>
-            <a href="./create-listing/index.html" class="bg-secondary border-2 border-primary text-primary text-[20px] font-bold
-             px-[35px] py-2 rounded-full self-center">Create</a>
+            <a href="./all-listings/index.html"
+              class="bg-primary border-2 border-primary text-neutral-0 text-[20px] font-bold
+             px-[35px] py-2 rounded-full self-center cursor-pointer hover:bg-secondary  hover:text-primary transition-colors duration-200">Explore</a>
+            <a href="./create-listing/index.html"
+              class="bg-secondary border-2 border-primary text-primary text-[20px] font-bold
+             px-[35px] py-2 rounded-full self-center cursor-pointer hover:bg-primary  hover:text-neutral-0 transition-colors duration-200">Create</a>
           </div>
         </div>
         <img src="./images/hero-section-img.svg" class="max-[960px]:w-[400px] max-[750px]:w-[450px]">

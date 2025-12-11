@@ -170,17 +170,18 @@ bidForm.addEventListener("submit", async function (e) {
 async function setupListingPage(listing) {
   currentListing = listing;
 
+  // Calculate highest bid
+  let highestBid = null;
 
   // Update page content dynamically
   document.title = `BidVerse | Listings | ${listing.title}`;
+
   title.textContent = listing.title;
   description.textContent = listing.description;
   authorImage.src = listing.seller.avatar.url
   authorImage.alt = listing.seller.avatar.alt
   authorName.textContent = listing.seller.name
 
-  // Calculate highest bid
-  let highestBid = null;
   if (listing.bids.length > 0) {
     highestBid = listing.bids.reduce((max, bid) =>
       bid.amount > max.amount ? bid : max
@@ -197,6 +198,9 @@ async function setupListingPage(listing) {
     highestBidderAvatar.src = "../images/placeholder-avatar.png";
     highestBidderAvatar.alt = "No bids yet";
   }
+
+  document.getElementById("meta-title")?.setAttribute("content", `BidVerse | Listings | ${listing.title}`);
+  document.getElementById("meta-description")?.setAttribute("content", `Place your bids on ${listing.title}. Current highest bid: ${highestBid.amount} credits. Join the auction on BidVerse today!`);
 
   // Image gallery section
   mainThumbnail.src = listing.media[0]?.url || "../images/no-image.png"

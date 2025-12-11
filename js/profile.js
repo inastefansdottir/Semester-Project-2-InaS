@@ -57,7 +57,7 @@ function renderThumbnails(listings) {
         <span class="timer-styling text-primary font-bold font-roboto-mono bg-secondary py-1 px-2.5 rounded-full border border-primary absolute top-2 left-2" data-endsAt="${listing.endsAt}"> 
           <i class="fa-regular fa-clock"></i> ${formatTimeRemaining(listing.endsAt)}
         </span>
-        <button class="edit-button text-neutral-0 font-bold font-roboto-mono bg-primary border border-neutral-0 py-[5px] px-2.5 rounded-full absolute top-2 right-2 cursor-pointer"> 
+        <button class="edit-button text-neutral-0 font-bold font-roboto-mono bg-primary border border-neutral-0 py-[5px] px-2.5 rounded-full absolute top-2 right-2 cursor-pointer hover:bg-secondary  hover:text-primary hover:border-primary transition-colors duration-100"> 
           <i class="fa-solid fa-pen"></i>
         </button>
       </div>
@@ -176,6 +176,9 @@ async function loadProfile() {
   const banner = document.getElementById("banner");
 
   document.title = `BidVerse | Profile | ${profile.data.name}`;
+
+  document.getElementById("meta-title").setAttribute("content", `BidVerse | Profile | ${profile.data.name}`);
+  document.getElementById("meta-description").setAttribute("content", `View and manage the profile of ${profile.data.name} on BidVerse. Check their listings, bio, and auction activity.`);
 
   username.textContent = profile.data.name || "Username";
   credits.textContent = profile.data.credits || 0;

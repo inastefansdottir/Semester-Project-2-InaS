@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title></title>
+  <meta name="title" content="" id="meta-title">
+  <meta name="description" content="" id="meta-description">
   <link rel="stylesheet" href="../dist/output.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -125,8 +127,10 @@
               <input type="number" name="bidAmount" id="bidAmount"
                 class="text-primary text-[20px] border-b-2 border-primary w-full focus:outline-none">
 
-              <button id="bidButton" type="submit" class="bg-primary text-neutral-0 font-bold
-             px-5 py-[7px] rounded-full mt-auto cursor-pointer">Place bid</button>
+              <button id="bidButton" type="submit"
+                class="bg-primary text-neutral-0 font-bold
+             px-5 py-[7px] rounded-full mt-auto cursor-pointer hover:bg-secondary hover:text-primary hover:outline-2 hover:outline-primary transition-colors duration-200">Place
+                bid</button>
             </form>
           </div>
           <p class="min-h-3.5 text-[14px] text-error text-right mt-1 mb-2" id="bidError"></p>

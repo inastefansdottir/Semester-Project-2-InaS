@@ -19,8 +19,9 @@ const descriptionError = document.getElementById("descriptionError");
 const imageError = document.getElementById("imageError");
 const endsAtError = document.getElementById("endsAtError");
 
-const loading = document.getElementById("loadingOverlay");
+const cancelButton = document.getElementById("cancelButton")
 
+const loading = document.getElementById("loadingOverlay");
 
 // prevent access unless logged in
 (function () {
@@ -39,7 +40,6 @@ const loading = document.getElementById("loadingOverlay");
     throw new Error("User not authenticated");
   }
 })();
-
 
 
 // Function to clear errors as user types
@@ -249,6 +249,10 @@ form.addEventListener("submit", async (e) => {
     loading.classList.remove("flex");
     loading.classList.add("hidden")
   }
+});
+
+cancelButton.addEventListener("click", () => {
+  window.location.href = "../index.html";
 });
 
 // initial render (shows upload button)

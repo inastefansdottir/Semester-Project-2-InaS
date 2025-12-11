@@ -37,7 +37,7 @@ async function onLoginFormSubmit(event) {
   const formFields = Object.fromEntries(formData);
 
   const errorIcon =
-    '<ion-icon name="alert-circle" class="alert-circle"></ion-icon>';
+    '<ion-icon name="alert-circle" class="alert-circle self-start mt-0.5"></ion-icon>';
   let hasError = false;
 
   // Clear previous messages
@@ -64,7 +64,7 @@ async function onLoginFormSubmit(event) {
     emailInput.classList.add("outline-error");
     emailInput.classList.remove("outline-none");
     errorMsg.classList.remove("hidden");
-    errorMsg.innerHTML = `<p class="error-message">${errorIcon} ${emailInput.validationMessage}</p>`;
+    errorMsg.innerHTML = `<p class="flex items-center gap-1">${errorIcon} ${emailInput.validationMessage}</p>`;
     hasError = true;
   }
 
@@ -74,7 +74,7 @@ async function onLoginFormSubmit(event) {
     passwordInput.classList.add("outline-error");
     passwordInput.classList.remove("outline-none");
     errorMsg.classList.remove("hidden");
-    errorMsg.innerHTML = `<p class="error-message">${errorIcon} Password must be at least ${minPasswordLength} characters long.</p>`;
+    errorMsg.innerHTML = `<p class="flex items-center gap-1">${errorIcon} Password must be at least ${minPasswordLength} characters long.</p>`;
     hasError = true;
   }
 
@@ -95,7 +95,7 @@ async function onLoginFormSubmit(event) {
       '<ion-icon name="alert-circle" class="alert-circle"></ion-icon>';
 
     errorMsg.classList.remove("hidden");
-    errorMsg.innerHTML = `<p class="error-message">${errorIcon} ${error.message || "Invalid email or password"
+    errorMsg.innerHTML = `<p class="flex items-center gap-1">${errorIcon} ${error.message || "Invalid email or password"
       }</p>`;
   }
 }

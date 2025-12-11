@@ -41,7 +41,7 @@ async function onRegisterFormSubmit(event) {
   const formFields = Object.fromEntries(formData);
 
   const errorIcon =
-    '<ion-icon name="alert-circle" class="alert-circle"></ion-icon>';
+    '<ion-icon name="alert-circle" class="alert-circle self-start mt-0.5"></ion-icon>';
   let hasError = false;
 
   // Clear previous messages
@@ -77,7 +77,7 @@ async function onRegisterFormSubmit(event) {
     nameInput.classList.add("outline-error");
     nameInput.classList.remove("outline-primary");
     errorMsg.classList.remove("hidden");
-    errorMsg.innerHTML = `<p class="error-message">${errorIcon} Username can only contain letters, numbers, and underscores. No spaces or special characters allowed.</p>`;
+    errorMsg.innerHTML = `<p class="flex items-center gap-1">${errorIcon} Username can only contain letters, numbers, and underscores. No spaces or special characters allowed.</p>`;
     hasError = true;
   }
 
@@ -86,7 +86,7 @@ async function onRegisterFormSubmit(event) {
     emailInput.classList.add("outline-error");
     emailInput.classList.remove("outline-primary");
     errorMsg.classList.remove("hidden");
-    errorMsg.innerHTML = `<p class="error-message">${errorIcon} ${emailInput.validationMessage}</p>`;
+    errorMsg.innerHTML = `<p class="flex items-center gap-1">${errorIcon} ${emailInput.validationMessage}</p>`;
     hasError = true;
   }
 
@@ -96,7 +96,7 @@ async function onRegisterFormSubmit(event) {
     passwordInput.classList.add("outline-error");
     passwordInput.classList.remove("outline-primary");
     errorMsg.classList.remove("hidden");
-    errorMsg.innerHTML = `<p class="error-message">${errorIcon} Password must be at least ${minPasswordLength} characters long.</p>`;
+    errorMsg.innerHTML = `<p class="flex items-center gap-1">${errorIcon} Password must be at least ${minPasswordLength} characters long.</p>`;
     hasError = true;
   }
 
@@ -117,20 +117,20 @@ async function onRegisterFormSubmit(event) {
         errorMsg.innerHTML = response.errors
           .map(
             error =>
-              `<p class="error-message">${errorIcon} ${error.message}</p>`
+              `<p class="flex items-center gap-1">${errorIcon} ${error.message}</p>`
           )
           .join("<br>");
       } else if (response?.message) {
         errorMsg.classList.remove("hidden");
-        errorMsg.innerHTML = `<p class="error-message">${errorIcon} ${response.message}</p>`;
+        errorMsg.innerHTML = `<p class="flex items-center gap-1">${errorIcon} ${response.message}</p>`;
       } else {
         errorMsg.classList.remove("hidden");
-        errorMsg.innerHTML = `<p class="error-message">${errorIcon} Registration failed. Please check your inputs.</p>`
+        errorMsg.innerHTML = `<p class="flex items-center gap-1">${errorIcon} Registration failed. Please check your inputs.</p>`
       }
     }
   } catch (error) {
     errorMsg.classList.remove("hidden");
-    errorMsg.innerHTML = `<p class="error-message">${errorIcon} We can't reach the server right now. Please check your connection and try again.</p>`
+    errorMsg.innerHTML = `<p class="flex items-center gap-1">${errorIcon} We can't reach the server right now. Please check your connection and try again.</p>`
   }
 }
 
