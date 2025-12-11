@@ -94,6 +94,17 @@
     </div>
   </header>
 
+  <!-- Overlay when user is not logged in -->
+  <div id="authOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm items-center justify-center z-50 hidden">
+    <div class="bg-white p-6 rounded-2xl shadow-xl w-[90%] max-w-sm text-center">
+      <h2 class="text-xl font-bold mb-2">You must be logged in</h2>
+      <p class="text-neutral-600 mb-4">Log in to create a listing on BidVerse.</p>
+      <a href="../login/index.html" class="bg-primary border-2 border-primary text-neutral-0 font-bold
+             px-5 py-[7px] rounded-full block">
+        Go to Login
+      </a>
+    </div>
+  </div>
   <main class="grow flex justify-center items-center px-5 xl:px-20">
     <!-- Create new listing form -->
     <form id="createListingForm"
@@ -136,14 +147,14 @@
       </div>
       <div class="self-center mt-3">
         <button class="bg-primary border-2 border-primary text-neutral-0 font-bold
-             px-5 py-[7px] rounded-full">Cancel <i class="fa-solid fa-x ml-1"></i></button>
+             px-5 py-[7px] rounded-full cursor-pointer">Cancel <i class="fa-solid fa-x ml-1"></i></button>
         <button type="submit" class="bg-secondary border-2 border-primary text-primary  font-bold
-             px-5 py-[7px] rounded-full ml-2.5">Create Listing</button>
+             px-5 py-[7px] rounded-full ml-2.5 cursor-pointer">Create Listing</button>
       </div>
     </form>
   </main>
 
-  <footer class="bg-primary px-5 xl:px-20 py-4 ">
+  <footer class="bg-primary px-5 xl:px-20 py-4 relative z-999">
     <div class="flex justify-between items-center max-w-[1600px] mx-auto w-full">
       <div class="flex gap-2.5">
         <a><i class="fa-brands fa-square-youtube text-neutral-0 text-2xl"></i></a>
@@ -153,6 +164,11 @@
       <p class="text-neutral-0 text-[14px] text-right ms-4">©2025 BidVerse. All rights reserved.</p>
     </div>
   </footer>
+
+  <div id="loadingOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm items-center justify-center z-998 hidden">
+    <span class="loader"></span>
+  </div>
+
 
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

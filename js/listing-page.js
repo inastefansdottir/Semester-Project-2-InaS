@@ -80,6 +80,9 @@ async function refreshBidList() {
     return;
   }
 
+  // Sort bids by descending amount
+  updated.bids.sort((a, b) => b.amount - a.amount);
+
   updated.bids.forEach(bid => {
     const wrapper = document.createElement("div");
     wrapper.className = "grid grid-cols-[57px_1fr] auto-rows-auto";
@@ -163,11 +166,6 @@ bidForm.addEventListener("submit", async function (e) {
   bidAmountInput.value = "";
   updateHighestBid(amount);
   await refreshBidList();
-
-  const updatedUser = await refreshUserProfile();
-  if (updatedUser) {
-    updateNavbarCredits(updatedUser.credits);
-  }
 })
 
 async function setupListingPage(listing) {
@@ -231,34 +229,7 @@ async function setupListingPage(listing) {
 
   setInterval(refreshBidList, 10000);
 
-
-  // All bids section
-  listing.bids.forEach(bid => {
-    const wrapper = document.createElement("div");
-    wrapper.className = "grid grid-cols-[57px_1fr] auto-rows-auto";
-
-    const bidTime = formatBidDate(bid.created);
-
-    const shortName = shortenName(bid.bidder.name, 10);
-
-    wrapper.innerHTML = `
-      <img src="${bid.bidder.avatar.url}" alt="${bid.bidder.avatar.alt}" class="h-[47px] w-[47px] rounded-full row-span-2 object-cover">
-      <p class="font-bold text-[18px] col-start-2">Bid: ${bid.amount} credits</p>
-      <div class="flex justify-between col-start-2">
-        <p class="text-neutral-500">By ${shortName}</p>
-        <p class="font-roboto-mono">${bidTime.date} <span class="text-neutral-500 ml-1 max-[485px]:hidden">${bidTime.time}</span></p>
-      </div>
-    `;
-
-    biddersContainer.appendChild(wrapper);
-  })
-
-  if (listing.bids.length === 0) {
-    const paragraph = document.createElement("p");
-    paragraph.className = "text-neutral-500 self-center"
-    paragraph.textContent = "No one has made a bid on this listing yet"
-    biddersContainer.appendChild(paragraph);
-  }
+  await refreshBidList();
 
   const LoggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 

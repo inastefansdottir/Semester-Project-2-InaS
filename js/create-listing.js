@@ -19,6 +19,29 @@ const descriptionError = document.getElementById("descriptionError");
 const imageError = document.getElementById("imageError");
 const endsAtError = document.getElementById("endsAtError");
 
+const loading = document.getElementById("loadingOverlay");
+
+
+// prevent access unless logged in
+(function () {
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  const overlay = document.getElementById("authOverlay");
+  const main = document.querySelector("main");
+
+  if (!user) {
+    overlay.classList.remove("hidden");
+    overlay.classList.add("flex");
+
+    // Blur and disable clicking on content
+    main.classList.add("blur-sm", "pointer-events-none");
+
+    // stop JS execution for the create listing logic
+    throw new Error("User not authenticated");
+  }
+})();
+
+
+
 // Function to clear errors as user types
 function clearFieldError(inputElement, errorElement) {
   inputElement.classList.remove("outline-error");
@@ -185,6 +208,9 @@ form.addEventListener("submit", async (e) => {
   // If any error happened, stop here
   if (hasError) return;
 
+  loading.classList.remove("hidden");
+  loading.classList.add("flex");
+
   const submitBtn = form.querySelector("button[type='submit']");
   if (submitBtn) submitBtn.disabled = true;
 
@@ -220,7 +246,9 @@ form.addEventListener("submit", async (e) => {
     console.error(err);
     imageError.textContent = err.message || "Failed to create listing";
   } finally {
-    if (submitBtn) submitBtn.disabled = false;
+    submitBtn.disabled = false;
+    loading.classList.remove("flex");
+    loading.classList.add("hidden")
   }
 });
 
