@@ -64,6 +64,16 @@ async function onRegisterFormSubmit(event) {
     hasError = true;
   }
 
+  // Email domain validation (@stud.noroff.no or @noroff.no only)
+  const allowedEmailRegex = /^[A-Za-z0-9._%+-]+@(stud\.noroff\.no|noroff\.no)$/;
+  if (formFields.email && !allowedEmailRegex.test(formFields.email)) {
+    emailInput.classList.add("outline-error");
+    emailInput.classList.remove("outline-primary");
+    errorMsg.classList.remove("hidden");
+    errorMsg.innerHTML = `<p class="flex items-center gap-1">${errorIcon} Email must end with @stud.noroff.no</p>`;
+    hasError = true;
+  }
+
   if (!formFields.password) {
     passwordError.textContent = "Password is required";
     passwordInput.classList.add("outline-error");

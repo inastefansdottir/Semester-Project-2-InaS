@@ -93,7 +93,7 @@ async function refreshBidList() {
     const shortName = shortenName(bid.bidder.name);
 
     wrapper.innerHTML = `
-      <img src="${bid.bidder.avatar.url}" alt="${bid.bidder.avatar.alt}" class="h-[47px] w-[47px] rounded-full object-cover row-span-2">
+      <img src="${bid.bidder.avatar.url}" alt="${bid.bidder.avatar.alt}" class="h-12.5 w-12.5 rounded-full object-cover row-span-2">
       <p class="font-bold text-[18px] col-start-2">Bid: ${bid.amount} credits</p>
       <div class="flex justify-between col-start-2">
         <p class="text-neutral-500">By ${shortName}</p>
@@ -253,7 +253,7 @@ async function setupListingPage(listing) {
 
 function disableBidButton(message) {
   bidButton.disabled = true;
-  bidButton.classList.remove("bg-primary", "text-neutral-0", "cursor-pointer");
+  bidButton.classList.remove("bg-primary", "text-neutral-0", "cursor-pointer", "hover:bg-secondary", "hover:outline-2", "hover:outline-primary", "hover:text-primary");
   bidButton.classList.add("bg-accent", "text-secondary");
   bidError.textContent = message;
 }

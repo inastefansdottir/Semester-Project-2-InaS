@@ -21,9 +21,9 @@
 
 <body class="font-roboto min-h-screen flex flex-col ">
   <header class="bg-secondary px-5 xl:px-20 py-4 sticky top-0 z-100 ">
-    <nav class="flex items-center justify-between max-w-[1600px] mx-auto w-full">
+    <nav class="flex items-center justify-between max-w-400 mx-auto w-full">
       <!-- Logo -->
-      <img src="./images/logo.svg" alt="BidVerse logo" class="h-[30px] w-auto" />
+      <img src="./images/logo.svg" alt="BidVerse logo" class="h-7.5 w-auto" />
 
       <!-- Desktop Menu -->
       <ul id="nav-links" class="hidden md:flex gap-8 items-center">
@@ -34,6 +34,9 @@
         <li>
           <a href="./all-listings/index.html" class="text-primary font-bold hover:text-highlight">Browse Listings</a>
         </li>
+        <li>
+          <a href="./create-listing/index.html" class="text-primary font-bold hover:text-highlight">Create Listing</a>
+        </li>
         <li class="logged-out">
           <a href="./login/index.html"
             class="bg-primary text-neutral-0 font-bold text-[14px] px-4 py-1.5 rounded-full hover:bg-accent transition-colors duration-200">Log
@@ -41,15 +44,12 @@
         </li>
 
         <!-- Links for logged-in users -->
-        <li class="hidden logged-in">
-          <a href="./create-listing/index.html" class="text-primary font-bold hover:text-highlight">Create Listing</a>
-        </li>
         <span
           class="hidden logged-in font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
           <strong id="desktopCredits" class="font-normal font-roboto-mono"></strong></span>
         <li class="hidden logged-in">
           <a href="./profile/index.html"><img src="" alt="Username avatar" id="desktopAvatar"
-              class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /></a>
+              class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /></a>
         </li>
       </ul>
 
@@ -74,21 +74,21 @@
         <li class="self-end">
           <a href="./all-listings/index.html" class="text-primary font-bold text-[18px]">Browse Listings</a>
         </li>
+        <li class="self-end">
+          <a href="./create-listing/index.html" class="text-primary font-bold text-[18px]">Create Listing</a>
+        </li>
         <li class="logged-out self-end mt-1">
           <a href="./login/index.html"
             class="bg-primary text-neutral-0 font-bold text-[16px] px-4 py-1.5 rounded-full">Log in</a>
         </li>
 
         <!-- Links for logged-in users -->
-        <li class="hidden logged-in self-end">
-          <a href="./create-listing/index.html" class="text-primary font-bold text-[18px]">Create Listing</a>
-        </li>
         <span
           class="hidden logged-in self-end font-bold text-primary text-[16px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
           <strong id="mobileCredits" class="font-normal font-roboto-mono"></strong></span>
         <li class="hidden logged-in self-end">
           <a href="./profile/index.html" class="flex items-center gap-2"><img src="" alt="Username avatar"
-              id="mobileAvatar" class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /><strong
+              id="mobileAvatar" class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /><strong
               id="mobileUsername" class="font-bold text-primary text-[18px]"></strong>
           </a>
         </li>
@@ -98,11 +98,11 @@
 
   <main class="grow relative">
     <!-- Gradient section -->
-    <div class="w-full bg-linear-to-b from-secondary to-neutral-0 absolute h-[850px] z-0">
+    <div class="w-full bg-linear-to-b from-secondary to-neutral-0 absolute h-212.5 z-0">
       <div
-        class="max-w-[1300px] mx-auto px-5 xl:px-20 flex items-center justify-between my-20 max-[750px]:flex-col max-[750px]:gap-16">
+        class="max-w-325 mx-auto px-5 xl:px-20 flex items-center justify-between my-20 max-[750px]:flex-col max-[750px]:gap-16">
         <div
-          class="max-w-[480px] max-[960px]:max-w-[350px] max-[750px]:flex max-[750px]:flex-col max-[750px]:items-center max-[750px]:max-w-[400px]">
+          class="max-w-120 max-[960px]:max-w-87.5 max-[750px]:flex max-[750px]:flex-col max-[750px]:items-center max-[750px]:max-w-100">
           <h1
             class="font-archivo-black text-[64px] text-primary leading-16 mb-7 max-[960px]:text-5xl max-[750px]:text-center">
             Discover, <span class="text-accent">Bid,
@@ -118,24 +118,24 @@
           <div class="flex gap-5">
             <a href="./all-listings/index.html"
               class="bg-primary border-2 border-primary text-neutral-0 text-[20px] font-bold
-             px-[35px] py-2 rounded-full self-center cursor-pointer hover:bg-secondary  hover:text-primary transition-colors duration-200">Explore</a>
+             px-8.75 py-2 rounded-full self-center cursor-pointer hover:bg-secondary  hover:text-primary transition-colors duration-200">Explore</a>
             <a href="./create-listing/index.html"
               class="bg-secondary border-2 border-primary text-primary text-[20px] font-bold
-             px-[35px] py-2 rounded-full self-center cursor-pointer hover:bg-primary  hover:text-neutral-0 transition-colors duration-200">Create</a>
+             px-8.75 py-2 rounded-full self-center cursor-pointer hover:bg-primary  hover:text-neutral-0 transition-colors duration-200">Create</a>
           </div>
         </div>
-        <img src="./images/hero-section-img.svg" class="max-[960px]:w-[400px] max-[750px]:w-[450px]">
+        <img src="./images/hero-section-img.svg" class="max-[960px]:w-100 max-[750px]:w-112.5">
       </div>
     </div>
 
     <div class="px-5 xl:px-20">
-      <div class="max-w-[1600px] mx-auto flex flex-col">
+      <div class="max-w-400 mx-auto flex flex-col">
         <h2
           class="font-archivo-black text-primary mt-200 mb-6 z-20 relative text-5xl max-[960px]:mt-160 max-[750px]:mt-260 max-[750px]:text-4xl max-[750px]:text-center">
           Live <span class="font-dm-serif text-accent">Auction</span>
         </h2>
         <div id="thumbnailsContainer"
-          class="relative z-10 grid w-full max-[629px]:grid-cols-1 min-[630px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 max-w-[1600px]  mb-20">
+          class="relative z-10 grid w-full max-[629px]:grid-cols-1 min-[630px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 max-w-400  mb-20">
         </div>
         <a href="./all-listings/index.html"
           class="text-primary text-[20px] font-bold underline underline-offset-2 text-center self-center mb-36 hover:text-highlight">Browse
@@ -148,7 +148,7 @@
   </main>
 
   <footer class="bg-primary px-5 xl:px-20 py-4 ">
-    <div class="flex justify-between items-center max-w-[1600px] mx-auto w-full">
+    <div class="flex justify-between items-center max-w-400 mx-auto w-full">
       <div class="flex gap-2.5">
         <a><i class="fa-brands fa-square-youtube text-neutral-0 text-2xl"></i></a>
         <a><i class="fa-brands fa-square-instagram text-neutral-0 text-2xl"></i></a>

@@ -66,11 +66,11 @@ function renderThumbnails(listings, replace = true) {
           <div class="flex justify-between mt-2">
             <div class="flex items-center gap-1">
               <img src="${listing.seller?.avatar?.url || "../images/placeholder-avatar.png"}" 
-                  alt="Username avatar" class="w-[25px] h-[25px] rounded-full object-cover">
+                  alt="Username avatar" class="w-6.25 h-6.25 rounded-full object-cover">
               <strong class="font-bold">${listing.seller?.name || 'Unknown'}</strong>
             </div>
 
-            <a href="../all-listings/listing.html?id=${listing.id}" class="bg-primary text-neutral-0 font-bold text-[14px] px-5 py-[5px] rounded-full hover:bg-accent transition-colors duration-200">Place bid</a>
+            <a href="../all-listings/listing.html?id=${listing.id}" class="bg-primary text-neutral-0 font-bold text-[14px] px-5 py-1.25 rounded-full hover:bg-accent transition-colors duration-200">Place bid</a>
           </div>
         </div>
       </div>

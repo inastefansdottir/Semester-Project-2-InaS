@@ -57,7 +57,7 @@ function renderThumbnails(listings) {
         <span class="timer-styling text-primary font-bold font-roboto-mono bg-secondary py-1 px-2.5 rounded-full border border-primary absolute top-2 left-2" data-endsAt="${listing.endsAt}"> 
           <i class="fa-regular fa-clock"></i> ${formatTimeRemaining(listing.endsAt)}
         </span>
-        <button class="edit-button text-neutral-0 font-bold font-roboto-mono bg-primary border border-neutral-0 py-[5px] px-2.5 rounded-full absolute top-2 right-2 cursor-pointer hover:bg-secondary  hover:text-primary hover:border-primary transition-colors duration-100"> 
+        <button class="edit-button text-neutral-0 font-bold font-roboto-mono bg-primary border border-neutral-0 py-1.25 px-2.5 rounded-full absolute top-2 right-2 cursor-pointer hover:bg-secondary  hover:text-primary hover:border-primary transition-colors duration-100"> 
           <i class="fa-solid fa-pen"></i>
         </button>
       </div>
@@ -69,7 +69,7 @@ function renderThumbnails(listings) {
             <span class="font-bold">${highestBid || 0} Credits</span>
             <div class="flex items-center gap-1">
               <img src="${listing.seller?.avatar?.url || '../images/placeholder-avatar.png'}" 
-                alt="Username avatar" class="w-[25px] h-[25px] rounded-full object-cover">
+                alt="Username avatar" class="w-6.25 h-6.25 rounded-full object-cover">
               <strong class="font-bold max-w-20 truncate block">
                 ${listing.seller?.name || 'Unknown'}
               </strong>
@@ -134,7 +134,7 @@ async function renderBidThumbnails(bids) {
             <span class="font-bold">${bid.amount || 0} Credits</span>
             <div class="flex items-center gap-1">
               <img src="${seller?.avatar?.url || '../images/placeholder-avatar.png'}" 
-                  alt="Username avatar" class="w-[25px] h-[25px] rounded-full object-cover">
+                  alt="Username avatar" class="w-6.25 h-6.25 rounded-full object-cover">
               <strong class="font-bold max-w-25 truncate block">${seller?.name || 'Unknown'}</strong>
             </div>
           </div>

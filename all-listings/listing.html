@@ -20,9 +20,9 @@
 
 <body class="font-roboto min-h-screen flex flex-col ">
   <header class="bg-secondary px-5 xl:px-20 py-4 sticky top-0 z-100 ">
-    <nav class="flex items-center justify-between max-w-[1600px] mx-auto w-full">
+    <nav class="flex items-center justify-between max-w-400 mx-auto w-full">
       <!-- Logo -->
-      <img src="../images/logo.svg" alt="BidVerse logo" class="h-[30px] w-auto" />
+      <img src="../images/logo.svg" alt="BidVerse logo" class="h-7.5 w-auto" />
 
       <!-- Desktop Menu -->
       <ul id="nav-links" class="hidden md:flex gap-8 items-center">
@@ -33,6 +33,9 @@
         <li>
           <a href="../all-listings/index.html" class="text-primary font-bold hover:text-highlight">Browse Listings</a>
         </li>
+        <li>
+          <a href="../create-listing/index.html" class="text-primary font-bold hover:text-highlight">Create Listing</a>
+        </li>
         <li class="logged-out">
           <a href="../login/index.html"
             class="bg-primary text-neutral-0 font-bold text-[14px] px-4 py-1.5 rounded-full hover:bg-accent transition-colors duration-200">Log
@@ -40,15 +43,12 @@
         </li>
 
         <!-- Links for logged-in users -->
-        <li class="hidden logged-in">
-          <a href="../create-listing/index.html" class="text-primary font-bold hover:text-highlight">Create Listing</a>
-        </li>
         <span
           class="hidden logged-in font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
           <strong id="desktopCredits" class="font-normal font-roboto-mono"></strong></span>
         <li class="hidden logged-in">
           <a href="../profile/index.html"><img src="" alt="Username avatar" id="desktopAvatar"
-              class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /></a>
+              class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /></a>
         </li>
       </ul>
 
@@ -73,21 +73,21 @@
         <li class="self-end">
           <a href="../all-listings/index.html" class="text-primary font-bold text-[18px]">Browse Listings</a>
         </li>
+        <li class="self-end">
+          <a href="../create-listing/index.html" class="text-primary font-bold text-[18px]">Create Listing</a>
+        </li>
         <li class="logged-out self-end mt-1">
           <a href="../login/index.html"
             class="bg-primary text-neutral-0 font-bold text-[16px] px-4 py-1.5 rounded-full">Log in</a>
         </li>
 
         <!-- Links for logged-in users -->
-        <li class="hidden logged-in self-end">
-          <a href="../create-listing/index.html" class="text-primary font-bold text-[18px]">Create Listing</a>
-        </li>
         <span
           class="hidden logged-in self-end font-bold text-primary text-[16px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
           <strong id="mobileCredits" class="font-normal font-roboto-mono"></strong></span>
         <li class="hidden logged-in self-end">
           <a href="../profile/index.html" class="flex items-center gap-2"><img src="" alt="Username avatar"
-              id="mobileAvatar" class="w-[30px] h-[30px] rounded-full object-cover border-2 border-primary" /><strong
+              id="mobileAvatar" class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /><strong
               id="mobileUsername" class="font-bold text-primary text-[18px]"></strong>
           </a>
         </li>
@@ -97,13 +97,13 @@
 
   <main class="grow">
     <div
-      class="flex max-w-[1600px] mx-auto px-5 xl:px-20 justify-center mt-28 mb-20 gap-10 max-[920px]:flex-col max-[920px]:max-w-[485px] max-[920px]:mt-20 max-[485px]:w-[390px]">
+      class="flex max-w-400 mx-auto px-5 xl:px-20 justify-center mt-28 mb-20 gap-10 max-[920px]:flex-col max-[920px]:max-w-121.25 max-[920px]:mt-20 max-[485px]:w-97.5">
       <div class="flex flex-col gap-10">
         <!-- Images section -->
         <div>
           <img id="mainThumbnail" src="" alt=""
-            class="w-[445px] h-[445px] object-cover rounded-[20px] mb-6 max-[485px]:w-[350px] max-[485px]:h-[350px]">
-          <div id="thumbnailsButtons" class="flex flex-wrap gap-2.5 max-w-[450px] max-[485px]:w-[350px]">
+            class="w-111.25 h-111.25 object-cover rounded-5 mb-6 max-[485px]:w-87.5 max-[485px]:h-87.5">
+          <div id="thumbnailsButtons" class="flex flex-wrap gap-2.5 max-w-112.5 max-[485px]:w-87.5">
           </div>
         </div>
 
@@ -122,14 +122,14 @@
                   Credits</p>
               </div>
             </div>
-            <form id="bidForm" class="w-[165px] flex flex-col max-[485px]:w-[130px]">
+            <form id="bidForm" class="w-41.25 flex flex-col max-[485px]:w-32.5">
               <label for="bidAmount" class="text-primary">Bid amount:</label>
               <input type="number" name="bidAmount" id="bidAmount"
                 class="text-primary text-[20px] border-b-2 border-primary w-full focus:outline-none">
 
               <button id="bidButton" type="submit"
                 class="bg-primary text-neutral-0 font-bold
-             px-5 py-[7px] rounded-full mt-auto cursor-pointer hover:bg-secondary hover:text-primary hover:outline-2 hover:outline-primary transition-colors duration-200">Place
+             px-5 py-1.75 rounded-full mt-auto cursor-pointer hover:bg-secondary hover:text-primary hover:outline-2 hover:outline-primary transition-colors duration-200">Place
                 bid</button>
             </form>
           </div>
@@ -138,14 +138,14 @@
       </div>
 
       <!-- Title + Author info -->
-      <div class="w-[370px] flex flex-col gap-10 max-[920px]:w-[445px] max-[485px]:w-[350px]">
+      <div class="w-92.5 flex flex-col gap-10 max-[920px]:w-111.25 max-[485px]:w-87.5">
         <div>
           <h1 id="title" class="font-archivo-black text-[40px] leading-11 mb-4">
           </h1>
           <p class="mb-6" id="description"></p>
           <div class="flex items-center">
             <p class="text-[20px] text-neutral-500 mr-3.5">Listing by:</p>
-            <img id="authorImage" src="" alt="" class="w-[35px] h-[35px] rounded-full mr-2 object-cover">
+            <img id="authorImage" src="" alt="" class="w-8.75 h-8.75 rounded-full mr-2 object-cover">
             <span id="authorName" class="font-archivo-black text-[20px]"></span>
           </div>
         </div>
@@ -162,7 +162,7 @@
   </main>
 
   <footer class="bg-primary px-5 xl:px-20 py-4 ">
-    <div class="flex justify-between items-center max-w-[1600px] mx-auto w-full">
+    <div class="flex justify-between items-center max-w-400 mx-auto w-full">
       <div class="flex gap-2.5">
         <a><i class="fa-brands fa-square-youtube text-neutral-0 text-2xl"></i></a>
         <a><i class="fa-brands fa-square-instagram text-neutral-0 text-2xl"></i></a>
