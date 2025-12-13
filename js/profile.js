@@ -185,7 +185,9 @@ async function loadProfile() {
   bio.textContent = profile.data.bio || "User has no bio..";
 
   avatar.src = profile.data.avatar?.url || "../images/placeholder-avatar.png";
+  avatar.alt = `${profile.data.name}'s avatar`;
   banner.src = profile.data.banner?.url || "../images/banner.png";
+  banner.alt = `${profile.data.name}'s banner`;
 
   // Fetch listings and bids
   let userListings = await getUserListings(user.name);

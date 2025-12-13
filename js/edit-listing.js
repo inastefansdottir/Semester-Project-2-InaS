@@ -6,7 +6,7 @@ const MAX_IMAGES = 4;
 
 const selectedFiles = [];
 
-const form = document.getElementById("createListingForm");
+const form = document.getElementById("editListingForm");
 const imageContainer = document.getElementById("imagePreviewContainer");
 const uploadBtn = document.getElementById("uploadBtn");
 const imageInput = document.getElementById("imageInput");

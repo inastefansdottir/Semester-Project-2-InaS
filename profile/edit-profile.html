@@ -46,12 +46,13 @@
         </li>
 
         <!-- Links for logged-in users -->
-        <span
-          class="hidden logged-in font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
-          <strong id="desktopCredits" class="font-normal font-roboto-mono"></strong></span>
+        <li class="hidden logged-in px-3 py-0.5 rounded-full border-2 border-primary">
+          <span class="font-bold text-primary text-[14px">Credits:
+            <strong id="desktopCredits" class="font-normal font-roboto-mono"></strong></span>
+        </li>
         <li class="hidden logged-in">
-          <a href="../profile/index.html"><img src="" alt="Username avatar" id="desktopAvatar"
-              class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /></a>
+          <a href="../profile/index.html"><img src="../images/placeholder-avatar.png" alt="Username avatar"
+              id="desktopAvatar" class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /></a>
         </li>
       </ul>
 
@@ -85,13 +86,15 @@
         </li>
 
         <!-- Links for logged-in users -->
-        <span
-          class="hidden logged-in self-end font-bold text-primary text-[16px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
-          <strong id="mobileCredits" class="font-normal font-roboto-mono"></strong></span>
+        <li class="hidden logged-in px-3 py-0.5 rounded-full border-2 border-primary self-end">
+          <span class="font-bold text-primary text-[14px">Credits:
+            <strong id="mobileCredits" class="font-normal font-roboto-mono"></strong></span>
+        </li>
         <li class="hidden logged-in self-end">
-          <a href="../profile/index.html" class="flex items-center gap-2"><img src="" alt="Username avatar"
-              id="mobileAvatar" class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /><strong
-              id="mobileUsername" class="font-bold text-primary text-[18px]"></strong>
+          <a href="../profile/index.html" class="flex items-center gap-2"><img src="../images/placeholder-avatar.png"
+              alt="Username avatar" id="mobileAvatar"
+              class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /><strong id="mobileUsername"
+              class="font-bold text-primary text-[18px]"></strong>
           </a>
         </li>
       </ul>
@@ -147,6 +150,7 @@
             class="bg-secondary border-2 border-primary text-primary font-bold
              px-5 py-1.5 rounded-full ml-2 cursor-pointer hover:bg-primary  hover:text-neutral-0 transition-colors duration-200">Save</button>
         </div>
+      </div>
     </form>
   </main>
 

@@ -17,8 +17,8 @@
     href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Serif+Display:ital@0;1&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script type="module" src="../js/navbar.js" defer></script>
-  <script type="module" src="../js/create-listing.js" defer></script>
+  <script type="module" src="../js/navbar.js"></script>
+  <script type="module" src="../js/create-listing.js"></script>
 </head>
 
 <body class="font-roboto min-h-screen flex flex-col ">
@@ -46,12 +46,13 @@
         </li>
 
         <!-- Links for logged-in users -->
-        <span
-          class="hidden logged-in font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
-          <strong id="desktopCredits" class="font-normal font-roboto-mono"></strong></span>
+        <li class="hidden logged-in px-3 py-0.5 rounded-full border-2 border-primary">
+          <span class="font-bold text-primary text-[14px">Credits:
+            <strong id="desktopCredits" class="font-normal font-roboto-mono"></strong></span>
+        </li>
         <li class="hidden logged-in">
-          <a href="../profile/index.html"><img src="" alt="Username avatar" id="desktopAvatar"
-              class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /></a>
+          <a href="../profile/index.html"><img src="../images/placeholder-avatar.png" alt="Username avatar"
+              id="desktopAvatar" class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /></a>
         </li>
       </ul>
 
@@ -85,13 +86,15 @@
         </li>
 
         <!-- Links for logged-in users -->
-        <span
-          class="hidden logged-in self-end font-bold text-primary text-[16px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
-          <strong id="mobileCredits" class="font-normal font-roboto-mono"></strong></span>
+        <li class="hidden logged-in px-3 py-0.5 rounded-full border-2 border-primary self-end">
+          <span class="font-bold text-primary text-[14px">Credits:
+            <strong id="mobileCredits" class="font-normal font-roboto-mono"></strong></span>
+        </li>
         <li class="hidden logged-in self-end">
-          <a href="../profile/index.html" class="flex items-center gap-2"><img src="" alt="Username avatar"
-              id="mobileAvatar" class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /><strong
-              id="mobileUsername" class="font-bold text-primary text-[18px]"></strong>
+          <a href="../profile/index.html" class="flex items-center gap-2"><img src="../images/placeholder-avatar.png"
+              alt="Username avatar" id="mobileAvatar"
+              class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /><strong id="mobileUsername"
+              class="font-bold text-primary text-[18px]"></strong>
           </a>
         </li>
       </ul>
@@ -112,7 +115,7 @@
   <main class="grow flex justify-center items-center px-5 xl:px-20">
     <!-- Create new listing form -->
     <form id="createListingForm"
-      class="p-9 max-[500px]:p-6 my-15 rounded-2xl bg-neutral-0 shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300 flex flex-col w-138">
+      class="p-9 max-[500px]:p-6 my-15 rounded-2xl bg-neutral-0 shadow-[0_4px_10px_0_rgba(102,102,255,0.30)] border border-neutral-300 flex flex-col w-full max-w-138">
       <h1 class="font-archivo-black text-primary text-[32px] self-center text-center mb-12">Create new listing</h1>
       <div>
         <label for="title" class="text-primary">Title:</label>
@@ -128,7 +131,7 @@
       </div>
 
       <!-- IMAGES -->
-      <label class="text-primary">Images (max 4)</label>
+      <label for="imagePreviewContainer" class="text-primary">Images (max 4)</label>
 
       <div id="imagePreviewContainer" class="flex gap-2.5 mt-2">
         <!-- JS will insert preview squares here -->
@@ -145,10 +148,11 @@
       <p class="min-h-3.5 text-[14px] text-error text-right mt-1 mb-2" id="imageError"></p>
 
       <label for="endsAt" class="text-primary">End listing at:</label>
-      <input type="date" id="endsAt" name="endsAt"
-        class="bg-neutral-0 text-primary w-full py-2 px-4 rounded-full outline mt-2" />
-      <p class="min-h-3.5 text-[14px] text-error text-right mt-1 mb-2" id="endsAtError"></p>
+      <div class="w-full">
+        <input type="date" id="endsAt" name="endsAt" class="bg-neutral-0 text-primary w-full box-border appearance-none
+           py-2 px-4 rounded-full outline mt-2" />
       </div>
+      <p class="min-h-3.5 text-[14px] text-error text-right mt-1 mb-2" id="endsAtError"></p>
       <div class="self-center mt-3">
         <button id="cancelButton"
           class="bg-primary border-2 border-primary text-neutral-0 font-bold

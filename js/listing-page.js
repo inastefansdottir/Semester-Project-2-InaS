@@ -93,7 +93,7 @@ async function refreshBidList() {
     const shortName = shortenName(bid.bidder.name);
 
     wrapper.innerHTML = `
-      <img src="${bid.bidder.avatar.url}" alt="${bid.bidder.avatar.alt}" class="h-12.5 w-12.5 rounded-full object-cover row-span-2">
+      <img src="${bid.bidder.avatar.url}" alt="${bid.bidder.name}'s avatar" class="h-12.5 w-12.5 rounded-full object-cover row-span-2">
       <p class="font-bold text-[18px] col-start-2">Bid: ${bid.amount} credits</p>
       <div class="flex justify-between col-start-2">
         <p class="text-neutral-500">By ${shortName}</p>
@@ -191,7 +191,7 @@ async function setupListingPage(listing) {
   if (highestBid) {
     highestBidderCredits.textContent = highestBid.amount;
     highestBidderAvatar.src = highestBid.bidder.avatar.url || "../images/placeholder-avatar.png";
-    highestBidderAvatar.alt = highestBid.bidder.avatar.alt || "Highest bidder avatar";
+    highestBidderAvatar.alt = "Highest bidder avatar";
     document.getElementById("meta-description")?.setAttribute("content", `Place your bids on ${listing.title}. Current highest bid: ${highestBid.amount} credits. Join the auction on BidVerse today!`);
   } else {
     // There are no bids

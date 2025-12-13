@@ -14,8 +14,8 @@
     href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Serif+Display:ital@0;1&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script type="module" src="../js/navbar.js" defer></script>
-  <script type="module" src="../js/profile.js" defer></script>
+  <script type="module" src="../js/navbar.js"></script>
+  <script type="module" src="../js/profile.js"></script>
 </head>
 
 <body class="font-roboto min-h-screen flex flex-col ">
@@ -43,12 +43,13 @@
         </li>
 
         <!-- Links for logged-in users -->
-        <span
-          class="hidden logged-in font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
-          <strong id="desktopCredits" class="font-normal font-roboto-mono"></strong></span>
+        <li class="hidden logged-in px-3 py-0.5 rounded-full border-2 border-primary">
+          <span class="font-bold text-primary text-[14px">Credits:
+            <strong id="desktopCredits" class="font-normal font-roboto-mono"></strong></span>
+        </li>
         <li class="hidden logged-in">
-          <a href="../profile/index.html"><img src="" alt="Username avatar" id="desktopAvatar"
-              class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /></a>
+          <a href="../profile/index.html"><img src="../images/placeholder-avatar.png" alt="Username avatar"
+              id="desktopAvatar" class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /></a>
         </li>
       </ul>
 
@@ -82,13 +83,15 @@
         </li>
 
         <!-- Links for logged-in users -->
-        <span
-          class="hidden logged-in self-end font-bold text-primary text-[16px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
-          <strong id="mobileCredits" class="font-normal font-roboto-mono"></strong></span>
+        <li class="hidden logged-in px-3 py-0.5 rounded-full border-2 border-primary self-end">
+          <span class="font-bold text-primary text-[14px">Credits:
+            <strong id="mobileCredits" class="font-normal font-roboto-mono"></strong></span>
+        </li>
         <li class="hidden logged-in self-end">
-          <a href="../profile/index.html" class="flex items-center gap-2"><img src="" alt="Username avatar"
-              id="mobileAvatar" class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /><strong
-              id="mobileUsername" class="font-bold text-highlight text-[18px]"></strong>
+          <a href="../profile/index.html" class="flex items-center gap-2"><img src="../images/placeholder-avatar.png"
+              alt="Username avatar" id="mobileAvatar"
+              class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /><strong id="mobileUsername"
+              class="font-bold text-highlight text-[18px]"></strong>
           </a>
         </li>
       </ul>
@@ -97,9 +100,9 @@
 
   <main class="grow">
     <!-- Banner and Avatar section -->
-    <div class="relative w-full h-103.75"> <img src="" id="banner"
+    <div class="relative w-full h-103.75"> <img src="" alt="" id="banner"
         class="absolute top-0 left-0 w-full h-87.5 object-cover" />
-      <div class="max-w-437.5 mx-auto w-full px-5 xl:px-20"> <img src="" id="avatar"
+      <div class="max-w-437.5 mx-auto w-full px-5 xl:px-20"> <img src="" alt="" id="avatar"
           class="w-32.5 h-32.5 rounded-full object-cover absolute -bottom-px left-1/2 -translate-x-1/2 min-[640px]:left-auto min-[640px]:translate-x-0" />
       </div>
     </div>
@@ -110,7 +113,7 @@
         <div class="flex flex-col max-w-ful min-w-0 max-[640px]:w-auto gap-3.5 mt-7 max-[640px]:items-center">
           <h1 id="username" class="font-archivo-black text-neutral-900 text-4xl break-all"></h1>
           <span
-            class="self-start font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary max-[640px]:self-center">Credits:
+            class="self-start font-bold text-primary px-3 py-0.5 rounded-full border-2 border-primary max-[640px]:self-center">Credits:
             <strong id="credits" class="font-normal font-roboto-mono"></strong></span>
           <p id="bio" class="max-[640px]:text-center"></p>
           <div class="mt-8 h-9.5">
@@ -136,8 +139,10 @@
              px-5 py-1.75 rounded-full self-center hover:bg-secondary  hover:text-primary hover:outline-2 hover:outline-primary transition-colors duration-200">Create</a>
           </div>
           <!-- Thumbnails -->
-          <div id="thumbnailsContainer"
-            class="grid w-full max-[915px]:grid-cols-1 min-[916px]:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+          <div id="thumbnailsContainer" class="grid w-full          grid-cols-1
+         min-[916px]:grid-cols-2
+         min-[1300px]:grid-cols-3
+         min-[1700px]:grid-cols-4 gap-4">
           </div>
         </div>
       </div>

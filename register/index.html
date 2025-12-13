@@ -15,8 +15,8 @@
     href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Serif+Display:ital@0;1&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script type="module" src="../js/navbar.js" defer></script>
-  <script type="module" src="../js/register.js" defer></script>
+  <script type="module" src="../js/navbar.js"></script>
+  <script type="module" src="../js/register.js"></script>
 </head>
 
 <body class="font-roboto min-h-screen flex flex-col ">
@@ -44,12 +44,13 @@
         </li>
 
         <!-- Links for logged-in users -->
-        <span
-          class="hidden logged-in font-bold text-primary text-[14px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
-          <strong id="desktopCredits" class="font-normal font-roboto-mono"></strong></span>
+        <li class="hidden logged-in px-3 py-0.5 rounded-full border-2 border-primary">
+          <span class="font-bold text-primary text-[14px">Credits:
+            <strong id="desktopCredits" class="font-normal font-roboto-mono"></strong></span>
+        </li>
         <li class="hidden logged-in">
-          <a href="../profile/index.html"><img src="" alt="Username avatar" id="desktopAvatar"
-              class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /></a>
+          <a href="../profile/index.html"><img src="../images/placeholder-avatar.png" alt="Username avatar"
+              id="desktopAvatar" class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /></a>
         </li>
       </ul>
 
@@ -83,13 +84,15 @@
         </li>
 
         <!-- Links for logged-in users -->
-        <span
-          class="hidden logged-in self-end font-bold text-primary text-[16px] px-3 py-0.5 rounded-full border-2 border-primary">Credits:
-          <strong id="mobileCredits" class="font-normal font-roboto-mono"></strong></span>
+        <li class="hidden logged-in px-3 py-0.5 rounded-full border-2 border-primary self-end">
+          <span class="font-bold text-primary text-[14px">Credits:
+            <strong id="mobileCredits" class="font-normal font-roboto-mono"></strong></span>
+        </li>
         <li class="hidden logged-in self-end">
-          <a href="../profile/index.html" class="flex items-center gap-2"><img src="" alt="Username avatar"
-              id="mobileAvatar" class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /><strong
-              id="mobileUsername" class="font-bold text-primary text-[18px]"></strong>
+          <a href="../profile/index.html" class="flex items-center gap-2"><img src="../images/placeholder-avatar.png"
+              alt="Username avatar" id="mobileAvatar"
+              class="w-7.5 h-7.5 rounded-full object-cover border-2 border-primary" /><strong id="mobileUsername"
+              class="font-bold text-primary text-[18px]"></strong>
           </a>
         </li>
       </ul>
@@ -98,7 +101,7 @@
 
   <main class="grow flex justify-center items-center">
     <div class="w-100 bg-secondary flex flex-col items-center p-10 border border-primary rounded-2xl my-10 mx-5">
-      <img src="../images/logo-text-dark.svg" class="mb-3.5">
+      <img src="../images/logo-text-dark.svg" alt="Dark and text only version of the Bidverse logo" class="mb-3.5">
       <p class="text-primary text-center mb-7">Create an account to start bidding, listing items, and connecting with
         other
         collectors.
