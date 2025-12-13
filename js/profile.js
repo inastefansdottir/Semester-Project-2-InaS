@@ -128,7 +128,7 @@ async function renderBidThumbnails(bids) {
           <span class="text-[18px] font-bold mt-2.5 wrap-break line-clamp-2">${fullListing.title}</span>
           <div class="flex justify-between">
             <span class="text-[14px] text-neutral-500">your bid</span>
-            <span class="text-[14px] text-neutral-500">Highest: ${highestBid || 0} Credits</span>
+            <span class="text-[14px] text-neutral-500">Highest: <strong class="font-roboto-mono">${highestBid || 0}</strong> Credits</span>
           </div>
           <div class="flex justify-between">
             <span class="font-bold">${bid.amount || 0} Credits</span>

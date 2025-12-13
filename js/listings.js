@@ -136,11 +136,15 @@ form.addEventListener("submit", async (e) => {
     </p>
   `;
     thumbnailsContainer.classList.remove("grid");
+    return;
   }
 });
 
 input.addEventListener("input", async () => {
-  loadMoreBtn.style.display = "none";
+  loadMoreBtn.classList.add = "hidden";
+  loadMoreBtn.classList.remove = "block";
+
+  thumbnailsContainer.classList.add("grid");
 
   const query = input.value.trim();
 
@@ -148,7 +152,8 @@ input.addEventListener("input", async () => {
     thumbnailsContainer.innerHTML = "";
     currentPage = 1;
     hasMore = true;
-    loadMoreBtn.style.display = "block"; // show load-more again
+    loadMoreBtn.classList.add = "block";
+    loadMoreBtn.classList.remove = "hidden"; // show load-more again
     loadNextPage(); // reload normal listings
     return;
   }
@@ -205,7 +210,7 @@ function renderThumbnails(listings, replace = true) {
         <span class="text-[18px] font-bold mt-2.5 wrap-break line-clamp-2">${listing.title}</span>
         <div class="mt-auto flex flex-col">
           <span class="text-[14px] text-neutral-500 leading-tight">current bid</span>
-          <span class="font-bold leading-tight">${highestBid || 0} Credits</span>
+          <span class="font-bold leading-tight"><strong class="font-roboto-mono">${highestBid || 0}</strong> Credits</span>
           <div class="flex justify-between mt-2">
             <div class="flex items-center gap-1">
               <img src="${listing.seller?.avatar?.url || "../images/placeholder-avatar.png"}" 
@@ -241,7 +246,8 @@ async function loadNextPage() {
     // If no listings returned, stop pagination
     if (!rawListings || rawListings.length === 0) {
       hasMore = false;
-      loadMoreBtn.style.display = "none";
+      loadMoreBtn.classList.add = "hidden";
+      loadMoreBtn.classList.remove = "block";
       return;
     }
 
