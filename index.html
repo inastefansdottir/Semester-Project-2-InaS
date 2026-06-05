@@ -16,6 +16,7 @@
     href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Serif+Display:ital@0;1&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
   <script type="module" src="../js/navbar.js"></script>
   <script type="module" src="../js/home.js"></script>
 </head>
@@ -102,7 +103,12 @@
     </div>
   </header>
 
-  <main class="grow relative">
+  <div id="pageLoader" class="grow flex flex-col items-center justify-center text-primary">
+    <span class="loader"></span>
+    <p class="mt-4 font-bold">Loading Home page...</p>
+  </div>
+
+  <main id="pageContent" class="grow hidden relative">
     <!-- Gradient section -->
     <div class="w-full bg-linear-to-b from-secondary to-neutral-0 absolute h-212.5 z-0">
       <div

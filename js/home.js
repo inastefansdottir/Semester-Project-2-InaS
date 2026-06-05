@@ -3,6 +3,20 @@ import { fetchListings } from "./api.js";
 // The container where all listing thumbnails will be displayed
 const thumbnailsContainer = document.getElementById("thumbnailsContainer")
 
+// Loader
+const pageLoader = document.getElementById("pageLoader");
+const pageContent = document.getElementById("pageContent");
+
+function showPageLoader() {
+  pageLoader.classList.remove("hidden");
+  pageContent.classList.add("hidden");
+}
+
+function hidePageLoader() {
+  pageLoader.classList.add("hidden");
+  pageContent.classList.remove("hidden");
+}
+
 /**
  * Converts an end date into a readable countdown string
  * Example: "2d:5h:30m:12s"
@@ -174,5 +188,20 @@ function updateAllTimers() {
 /** Handle resizing */
 window.addEventListener("resize", updateDisplayedListings);
 
-/** Start */
-loadListings();
+async function loadPage() {
+  showPageLoader();
+
+  try {
+    await loadListings();;;
+
+    hidePageLoader();
+  } catch (error) {
+    pageLoader.innerHTML = `
+      <p class="text-center text-primary text-xl font-bold">
+        Failed to load page. Please try again.
+      </p>
+    `;
+  }
+}
+
+loadPage();

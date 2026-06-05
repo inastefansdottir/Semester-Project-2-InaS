@@ -28,6 +28,20 @@ const listingId = params.get("id");
 
 let currentListing = null; // store latest listing data globally
 
+// Loader
+const pageLoader = document.getElementById("pageLoader");
+const pageContent = document.getElementById("pageContent");
+
+function showPageLoader() {
+  pageLoader.classList.remove("hidden");
+  pageContent.classList.add("hidden");
+}
+
+function hidePageLoader() {
+  pageLoader.classList.add("hidden");
+  pageContent.classList.remove("hidden");
+}
+
 // Utilities
 function formatBidDate(isoString) {
   const date = new Date(isoString);
@@ -259,13 +273,20 @@ function disableBidButton(message) {
 }
 
 async function fetchListingPage(listingId) {
+  showPageLoader();
+
   try {
     const data = await getListingById(listingId);
 
-    setupListingPage(data);
+    await setupListingPage(data);
+
+    hidePageLoader();
   } catch (error) {
-    alert("Failed to load the listing. Please try again.");
-    window.location.href = "index.html"
+    pageLoader.innerHTML = `
+      <p class="text-center text-primary text-xl font-bold">
+        Failed to load the listing. Please try again.
+      </p>
+    `;
   }
 }
 

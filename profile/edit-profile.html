@@ -104,7 +104,12 @@
     </div>
   </header>
 
-  <main class="grow">
+  <div id="pageLoader" class="grow flex flex-col items-center justify-center text-primary">
+    <span class="loader"></span>
+    <p class="mt-4 font-bold">Loading Edit profile...</p>
+  </div>
+
+  <main id="pageContent" class="grow hidden">
     <form id="editProfileForm" class="mb-20">
       <div class="relative w-full h-103.75"> <img src="" id="bannerImg"
           class="absolute top-0 left-0 w-full h-87.5 object-cover" />

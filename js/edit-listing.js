@@ -27,6 +27,20 @@ const cancelButton = document.getElementById("cancelButton");
 const params = new URLSearchParams(window.location.search);
 const listingId = params.get("id");
 
+// Loader
+const pageLoader = document.getElementById("pageLoader");
+const pageContent = document.getElementById("pageContent");
+
+function showPageLoader() {
+  pageLoader.classList.remove("hidden");
+  pageContent.classList.add("hidden");
+}
+
+function hidePageLoader() {
+  pageLoader.classList.add("hidden");
+  pageContent.classList.remove("hidden");
+}
+
 
 // Function to clear errors as user types
 function clearFieldError(inputElement, errorElement) {
@@ -245,4 +259,21 @@ cancelButton.addEventListener("click", () => {
 });
 
 renderSlots();
-fetchListing();
+
+async function loadPage() {
+  showPageLoader();
+
+  try {
+    await fetchListing();;
+
+    hidePageLoader();
+  } catch (error) {
+    pageLoader.innerHTML = `
+      <p class="text-center text-primary text-xl font-bold">
+        Failed to load page. Please try again.
+      </p>
+    `;
+  }
+}
+
+loadPage();

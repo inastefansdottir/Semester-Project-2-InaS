@@ -35,6 +35,20 @@ const bannerInput = document.createElement("input");
 bannerInput.type = "file";
 bannerInput.accept = "image/*";
 
+// Loader
+const pageLoader = document.getElementById("pageLoader");
+const pageContent = document.getElementById("pageContent");
+
+function showPageLoader() {
+  pageLoader.classList.remove("hidden");
+  pageContent.classList.add("hidden");
+}
+
+function hidePageLoader() {
+  pageLoader.classList.add("hidden");
+  pageContent.classList.remove("hidden");
+}
+
 // Handle avatar change
 editAvatarBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -77,28 +91,34 @@ async function uploadToCloudinary(file) {
 
 // Load profile data from api
 async function loadProfile() {
-  try {
-    const user = JSON.parse(localStorage.getItem("loggedInUser"));
-    if (!user) return;
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
 
-    const profile = await getProfile(user.name);
-
-    avatarImg.src = profile.data.avatar.url;
-    bannerImg.src = profile.data.banner.url;
-    bioInput.value = profile.data.bio || "";
-
-    nameSpan.textContent = profile.data.name;
-    emailSpan.textContent = profile.data.email;
-    creditsSpan.textContent = profile.data.credits;
-
-    // Save originals for cancel button
-    originalAvatar = { ...profile.data.avatar }; // {url, alt}
-    originalBanner = { ...profile.data.banner };
-    originalBio = profile.data.bio || "";
-
-  } catch (err) {
-    alert("Failed to load profile. Please refresh the page.");
+  if (!user) {
+    window.location.href = "../login/index.html";
+    return;
   }
+
+  const profile = await getProfile(user.name);
+
+  avatarImg.src = profile.data.avatar?.url || "../images/placeholder-avatar.png";
+  bannerImg.src = profile.data.banner?.url || "../images/banner.png";
+  bioInput.value = profile.data.bio || "";
+
+  nameSpan.textContent = profile.data.name;
+  emailSpan.textContent = profile.data.email;
+  creditsSpan.textContent = profile.data.credits;
+
+  originalAvatar = {
+    url: profile.data.avatar?.url || "../images/placeholder-avatar.png",
+    alt: profile.data.avatar?.alt || `${profile.data.name}'s avatar`,
+  };
+
+  originalBanner = {
+    url: profile.data.banner?.url || "../images/banner.png",
+    alt: profile.data.banner?.alt || `${profile.data.name}'s banner`,
+  };
+
+  originalBio = profile.data.bio || "";
 }
 
 // Save profile changes
@@ -158,5 +178,20 @@ cancelBtn.addEventListener("click", e => {
   location.href = "/profile/index.html"
 })
 
-// Load profile on page load
-loadProfile();
+async function loadPage() {
+  showPageLoader();
+
+  try {
+    await loadProfile();
+
+    hidePageLoader();
+  } catch (error) {
+    pageLoader.innerHTML = `
+      <p class="text-center text-primary text-xl font-bold">
+        Failed to load page. Please try again.
+      </p>
+    `;
+  }
+}
+
+loadPage();
