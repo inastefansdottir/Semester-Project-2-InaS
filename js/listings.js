@@ -115,7 +115,19 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const query = input.value.trim();
-  if (!query) return;
+  if (!query) {
+    thumbnailsContainer.innerHTML = "";
+    thumbnailsContainer.classList.add("grid");
+
+    currentPage = 1;
+    hasMore = true;
+
+    loadMoreBtn.classList.remove("hidden");
+    loadMoreBtn.classList.add("block");
+
+    loadNextPage();
+    return;
+  }
 
   try {
     const results = await searchListings(query);
@@ -140,38 +152,16 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-input.addEventListener("input", async () => {
-  loadMoreBtn.classList.add = "hidden";
-  loadMoreBtn.classList.remove = "block";
 
-  thumbnailsContainer.classList.add("grid");
+function getTimerClasses(endsAt) {
+  const timeText = formatTimeRemaining(endsAt);
 
-  const query = input.value.trim();
-
-  if (!query) {
-    thumbnailsContainer.innerHTML = "";
-    currentPage = 1;
-    hasMore = true;
-    loadMoreBtn.classList.add = "block";
-    loadMoreBtn.classList.remove = "hidden"; // show load-more again
-    loadNextPage(); // reload normal listings
-    return;
+  if (timeText === "Ended") {
+    return "bg-light-error text-error border-error";
   }
 
-  const results = await searchListings(query);
-
-  if (results.length === 0) {
-    thumbnailsContainer.classList.remove("grid");
-    thumbnailsContainer.innerHTML = `
-      <p class="text-center text-primary text-xl font-bold pt-10">No results found.</p>
-    `;
-    return;
-  }
-
-  const sorted = sortListings(results, currentSort);
-  renderThumbnails(sorted);
-});
-
+  return "bg-secondary text-primary border-primary";
+}
 
 /**
  * Render thumbnails for a list of listings
@@ -202,8 +192,9 @@ function renderThumbnails(listings, replace = true) {
           <img src="${listing.media?.[0]?.url || "../images/no-image.png"}" alt="${listing.media?.[0]?.alt || listing.title || ''}" 
                class="absolute inset-0 w-full h-full object-cover rounded-xl">
         </div>
-        <span class="timer-styling text-primary font-bold font-roboto-mono bg-secondary py-1 px-2.5 rounded-full border border-primary absolute top-2 left-2"
-        data-endsAt="${listing.endsAt}">${listing.timer || ''}
+        <span class="timer-styling font-bold font-roboto-mono py-1 px-2.5 rounded-full border absolute top-2 left-2 ${getTimerClasses(listing.endsAt)}"
+          data-endsat="${listing.endsAt}">
+          <i class="fa-regular fa-clock"></i> ${formatTimeRemaining(listing.endsAt)}
         </span>
       </div>
       <div class="flex flex-col h-full">
@@ -231,60 +222,104 @@ function renderThumbnails(listings, replace = true) {
 }
 
 /**
+ * Skeleton loading state for the listings thumbnails
+ */
+function createListingSkeleton() {
+  const skeleton = document.createElement("div");
+
+  skeleton.className =
+    "listing-skeleton p-4 rounded-2xl bg-secondary/20 border border-primary/50 shadow-[0_6px_16px_0_rgba(102,102,255,0.25)] flex flex-col animate-pulse";
+
+  skeleton.innerHTML = `
+    <div class="relative">
+      <div class="relative w-full aspect-square bg-primary/50 rounded-xl"></div>
+
+      <div class="absolute top-2 left-2 h-8 w-32 bg-secondary rounded-full border border-primary"></div>
+    </div>
+
+    <div class="flex flex-col h-full">
+      <div class="h-5 bg-primary/50 rounded mt-2.5 w-4/5"></div>
+
+      <div class="mt-auto flex flex-col pt-2">
+        <div class="h-3.5 bg-primary/50 rounded w-20"></div>
+        <div class="h-5 bg-primary/50 rounded mt-1.5 w-28"></div>
+
+        <div class="flex justify-between items-center mt-2">
+          <div class="flex items-center gap-1">
+            <div class="w-6.25 h-6.25 rounded-full bg-primary/50"></div>
+            <div class="h-4 bg-primary/50 rounded w-20"></div>
+          </div>
+
+          <div class="h-8 bg-primary/50 rounded-full w-24"></div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  return skeleton;
+}
+
+/**
+ * Show/Remove skeleton
+ * @param {thumbnail count} count 
+ * @param {*} replace 
+ */
+function showListingSkeletons(count = 8, replace = true) {
+  thumbnailsContainer.classList.add("grid");
+
+  if (replace) {
+    thumbnailsContainer.innerHTML = "";
+  }
+
+  for (let i = 0; i < count; i++) {
+    thumbnailsContainer.appendChild(createListingSkeleton());
+  }
+}
+
+function removeListingSkeletons() {
+  const skeletons = thumbnailsContainer.querySelectorAll(".listing-skeleton");
+  skeletons.forEach(skeleton => skeleton.remove());
+}
+
+/**
  * Load the next page of listings from the API
- * Applies filtering, sorting, and appends to the page
  */
 async function loadNextPage() {
-  if (isLoading || !hasMore) return; // prevent double requests
+  if (isLoading || !hasMore) return;
 
   isLoading = true;
-  loadMoreBtn.disabled = true; // Disable button while loading
+  loadMoreBtn.disabled = true;
+
+  // Initial page replaces the empty container.
+  // Later pages append skeletons below the existing listings.
+  const isFirstPage = currentPage === 1;
+  showListingSkeletons(isFirstPage ? 8 : 4, isFirstPage);
 
   try {
-    const rawListings = await fetchListings(currentPage); // Fetch API for current page
+    const rawListings = await fetchListings(currentPage);
 
-    // If no listings returned, stop pagination
+    removeListingSkeletons();
+
     if (!rawListings || rawListings.length === 0) {
       hasMore = false;
-      loadMoreBtn.classList.add = "hidden";
-      loadMoreBtn.classList.remove = "block";
+      loadMoreBtn.classList.add("hidden");
+      loadMoreBtn.classList.remove("block");
       return;
     }
 
-    // Filter logic
-    const now = new Date();
-    const threeDays = 3 * 24 * 60 * 60 * 1000; // 3 days in ms
-
-    const filtered = rawListings.filter(listing => {
-      const endsAt = new Date(listing.endsAt);
-
-      if (endsAt > now) return true; // Listing is live
-      if (now - endsAt <= threeDays) return true; // Ended less than 3 days ago
-      return false; // older than 3 days > skip
-    });
-
-    // Skip empty pages automatically
-    if (filtered.length === 0) {
-      currentPage++;
-      isLoading = false;
-      loadMoreBtn.disabled = false;
-      loadNextPage(); // try next page
-      return;
-    }
-
-    // Append filtered listings to container
-    const sorted = sortListings(filtered, currentSort);
+    const sorted = sortListings(rawListings, currentSort);
     renderThumbnails(sorted, false);
 
-
-    currentPage++; // Move to next page for future requests
+    currentPage++;
   } catch (error) {
+    removeListingSkeletons();
+
     thumbnailsContainer.classList.remove("grid");
     thumbnailsContainer.innerHTML = `
-    <p class="text-center text-primary text-xl font-bold pt-10">
-      Failed to load listings. Please try again.
-    </p>
-  `;
+      <p class="text-center text-primary text-xl font-bold pt-10">
+        Failed to load listings. Please try again.
+      </p>
+    `;
   }
 
   isLoading = false;
@@ -314,7 +349,9 @@ function updateAllTimers() {
     if (timeText === "Ended") {
       timer.classList.add("bg-light-error", "text-error", "border-error");
       timer.classList.remove("bg-secondary", "text-primary", "border-primary");
+    } else {
+      timer.classList.add("bg-secondary", "text-primary", "border-primary");
+      timer.classList.remove("bg-light-error", "text-error", "border-error");
     }
   });
 }
-
